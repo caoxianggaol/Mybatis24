@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace可以理解为包名属性值可以理解为完全限定名-->
+<mapper namespace="com.kaishengit.mapper.StudentMapper">
+
+<!--id="save"给insert节点起名字-->
+    <insert id="save" parameterType="student">
+        INSERT INTO student (stu_name, stu_age)
+        VALUES
+	    (#{stuName},#{stuAge})
+    </insert>
+
+
+    <select id="findAll" resultType="student">
+        SELECT
+            id,
+            stu_name,
+            stu_age
+        FROM
+            student
+    </select>
+
+    <select id="findById" parameterType="int" resultType="student">
+        SELECT
+            id,
+            stu_name,
+            stu_age
+        FROM
+            student
+        WHERE
+            id = #{id}
+    </select>
+
+   <update id="update" parameterType="student" >
+        UPDATE student
+        SET stu_name = #{stuName}, stu_age = #{stuAge}
+        WHERE
+              id = #{id}
+    </update>
+
+
+        <delete id="delete" parameterType="int">
+            DELETE FROM student WHERE id = #{id}
+        </delete>
+
+</mapper>
