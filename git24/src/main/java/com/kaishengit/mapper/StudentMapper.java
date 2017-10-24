@@ -10,6 +10,7 @@ import java.util.List;
  */
 public interface StudentMapper {
 
+    //返回值为int时表示受影响的行数
     void save(Student student);
     void update(Student student);
     void delete(int id);
