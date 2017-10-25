@@ -35,6 +35,8 @@
     <!--配置mapper文件-->
     <mappers>
         <!--classpath中的路径 即源代码的根目录-->
-        <mapper resource="mapper/StudentMapper.xml"></mapper>
+        <mapper resource="mapper/StudentMapper.xml"/>
+        <mapper resource="mapper/UserMapper.xml"/>
+        <mapper resource="mapper/DeptMapper.xml"/>
     </mappers>
 </configuration>

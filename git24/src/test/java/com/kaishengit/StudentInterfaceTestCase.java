@@ -8,7 +8,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by xiaogao on 2017/10/24.
@@ -38,7 +40,12 @@ public class StudentInterfaceTestCase {
 
         Student student = new Student("天明",20);
         studentMapper.save(student);
+        //返回的为受影响的行数
+        //int updateRows = studentMapper.save(student);
+        //System.out.println(updateRows);
 
+        //在StudentMapper.xml中写sql时加属性后则可以返回id
+        //System.out.println(student.getId());
         sqlSession.commit();
     }
 
@@ -72,5 +79,23 @@ public class StudentInterfaceTestCase {
     public void delete(){
         studentMapper.delete(4);
         sqlSession.commit();
+    }
+
+    @Test
+    public void page(){
+
+        //封装一个map对象
+       // Map<String,Integer> map = new HashMap<>();
+        //map.put("offset",0);
+        //map.put("size",3);
+        //List<Student> studentList = studentMapper.page(map);
+        //for (Student student : studentList) {
+            //System.out.println(student);
+        //}
+
+        List<Student> studentList = studentMapper.page(0,3);
+        for (Student student : studentList) {
+            System.out.println(student);
+        }
     }
 }
