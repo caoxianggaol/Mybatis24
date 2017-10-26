@@ -1,11 +1,13 @@
 package com.kaishengit.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by xiaogao on 2017/10/25.
  */
-public class User {
+         /*开启二级缓存，实现序列化接口*/
+public class User implements Serializable{
 
     private Integer id;
     private String userName;

@@ -4,6 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kaishengit.mapper.UserMapper">
 
+ <!--开启二级缓存 1.添加<cache/>节点 2.对该实体类实现序列化接口-->
+    <!--<cache/>
+
+
     <resultMap id="baseMap" type="com.kaishengit.entity.User">
         <id column="id" property="id"/>
         <result column="user_name" property="userName"/>
@@ -13,21 +17,21 @@
     </resultMap>
 
 
-    <!--在实体类中有一个对象时使用如下，property="dept"指实体类中的属性dept，javaType="dept" 实体类中的类型Dept-->
-    <!--方案一 -->
+    &lt;!&ndash;在实体类中有一个对象时使用如下，property="dept"指实体类中的属性dept，javaType="dept" 实体类中的类型Dept&ndash;&gt;
+    &lt;!&ndash;方案一 &ndash;&gt;
     <resultMap id="userMap" type="user" extends="baseMap">
-       <!-- <id column="id" property="id"/>
+       &lt;!&ndash; <id column="id" property="id"/>
         <result column="user_name" property="userName"/>
         <result column="address" property="address"/>
         <result column="password" property="password"/>
-        <result column="dept_id" property="deptId"/>-->
+        <result column="dept_id" property="deptId"/>&ndash;&gt;
         <association property="dept" javaType="dept">
             <id column="dept_id" property="id"/>
             <result column="dept_name" property="deptName"/>
         </association>
     </resultMap>
-    <!--resultMap="userMap"的属性值和resultMap中id的属性值一致为：userMap-->
-    <select id="findById" resultMap="userMap">
+    &lt;!&ndash;resultMap="userMap"的属性值和resultMap中id的属性值一致为：userMap&ndash;&gt;
+ &lt;!&ndash;   <select id="findById" resultMap="userMap">
     SELECT
     t_user.id,
     user_name,
@@ -40,9 +44,9 @@
     LEFT JOIN t_dept ON t_user.dept_id = t_dept.id
     WHERE
     t_user.id = #{userId}
-</select>
-    <!--方案二-->
-   <!-- <select id="findById" resultType="user">
+</select>  &ndash;&gt;
+    &lt;!&ndash;方案二&ndash;&gt;
+    <select id="findById" resultType="user">
         SELECT
             t_user.id,
             user_name,
@@ -57,9 +61,9 @@
             LEFT JOIN t_dept ON t_user.dept_id = t_dept.id
         WHERE
             t_user.id = #{userId}
-    </select>-->
+    </select>
 
-    <!--实体类中封装一个list<Tag>解决方案如下-->
+    &lt;!&ndash;实体类中封装一个list<Tag>解决方案如下&ndash;&gt;
     <resultMap id="userWithTagMap" type="com.kaishengit.entity.User" extends="baseMap">
         <collection property="tagList" ofType="com.kaishengit.entity.Tag">
             <id column="tagid" property="id"/>
@@ -82,6 +86,35 @@
         WHERE
             t_user.id = #{userId}
     </select>
+    -->
 
 
+
+    <!--n+1问题 即动态SQL查询之外的另外一种方法-->
+
+   <resultMap id="baseMap" type="com.kaishengit.entity.User">
+    <id column="id" property="id"/>
+    <result column="user_name" property="userName"/>
+    <result column="address" property="address"/>
+    <result column="password" property="password"/>
+    <result column="dept_id" property="deptId"/>
+   </resultMap>
+
+    <resultMap id="userWithDeptMap" type="user" extends="baseMap">
+        <association property="dept" javaType="dept" column="dept_id" select="com.kaishengit.mapper.DeptMapper.findById"/>
+        <collection property="tagList" ofType="tag" column="id" select="com.kaishengit.mapper.TagMapper.findByUserId"/>
+    </resultMap>
+
+    <select id="findById" resultMap="userWithDeptMap">
+        SELECT
+        t_user.id,
+        user_name,
+        address,
+        `password`,
+        dept_id
+        FROM
+        t_user
+        WHERE
+        id = #{id}
+    </select>
 </mapper>
