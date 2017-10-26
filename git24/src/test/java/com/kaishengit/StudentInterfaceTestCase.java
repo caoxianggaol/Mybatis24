@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -97,5 +98,17 @@ public class StudentInterfaceTestCase {
         for (Student student : studentList) {
             System.out.println(student);
         }
+    }
+
+@Test
+    public void batchSave(){
+
+        Student student = new Student("zx",19);
+        Student student1 = new Student("sd",18);
+        Student student2 = new Student("fd",19);
+        List<Student> studentList = Arrays.asList(student,student1,student2);
+        studentMapper.batchSave(studentList);
+
+        sqlSession.commit();
     }
 }

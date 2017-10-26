@@ -14,6 +14,15 @@
 	    (#{stuName},#{stuAge})
     </insert>
 
+    <!--批量添加-->
+    <insert id="batchSave">
+        INSERT INTO student (stu_name, stu_age)
+        VALUES
+        <foreach collection="studentList" item="student" separator=",">
+            (#{student.stuName},#{student.stuAge})
+        </foreach>
+    </insert>
+    
     <!--结果映射，查询结果的封装， 可通过注释掉下划线和数据库转换的那个配置来yanzhemg-->
     <resultMap id="studentMap" type="com.kaishengit.entity.Student">
         <id column="id" property="id"/>

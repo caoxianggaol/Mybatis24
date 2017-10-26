@@ -25,4 +25,7 @@ public interface StudentMapper {
    // 处理如下1.#{arg0},#{arg1}2.#{param1},#{param2}*/
     /*最好解决方案为加注解 @Param(别名)之后sql中可以写成#{offset},#{size}*/
     List<Student> page(@Param("offset") int offset,@Param("size") int size);
+
+    /*批量添加*/
+    int batchSave(@Param("studentList") List<Student> studentList);
 }
