@@ -39,7 +39,7 @@ public class StudentInterfaceTestCase {
         //使用动态代理模式
         //StudentMapper studentMapper =  sqlSession.getMapper(StudentMapper.class);
 
-        Student student = new Student("天明",20);
+        Student student = new Student("小小",20);
         studentMapper.save(student);
         //返回的为受影响的行数
         //int updateRows = studentMapper.save(student);
@@ -69,7 +69,7 @@ public class StudentInterfaceTestCase {
     @Test
     public void update(){
 
-        Student student = studentMapper.findById(9);
+        Student student = studentMapper.findById(5);
         student.setStuAge(21);
 
         studentMapper.update(student);
@@ -78,7 +78,7 @@ public class StudentInterfaceTestCase {
 
     @Test
     public void delete(){
-        studentMapper.delete(4);
+        studentMapper.delete(18);
         sqlSession.commit();
     }
 

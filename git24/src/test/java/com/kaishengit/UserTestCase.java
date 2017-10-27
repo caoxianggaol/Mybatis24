@@ -4,6 +4,7 @@ import com.kaishengit.entity.Tag;
 import com.kaishengit.entity.User;
 import com.kaishengit.mapper.UserMapper;
 import com.kaishengit.util.MyBatisUtil;
+import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.After;
 import org.junit.Before;
@@ -15,6 +16,7 @@ import java.util.List;
 /**
  * Created by xiaogao on 2017/10/25.
  */
+
 public class UserTestCase {
 
     private SqlSession sqlSession;

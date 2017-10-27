@@ -34,11 +34,18 @@
 
     <!--配置mapper文件-->
     <mappers>
-        <!--classpath中的路径 即源代码的根目录-->
+
+      <!--  &lt;!&ndash;classpath中的路径 即源代码的根目录&ndash;&gt;
         <mapper resource="mapper/StudentMapper.xml"/>
         <mapper resource="mapper/UserMapper.xml"/>
         <mapper resource="mapper/DeptMapper.xml"/>
         <mapper resource="mapper/MovieMapper.xml"/>
-        <mapper resource="mapper/TagMapper.xml"/>
+        <mapper resource="mapper/TagMapper.xml"/>-->
+
+        <!--基于注解配置-->
+        <mapper class="com.kaishengit.mapper.StudentMapper"/>
+        <mapper class="com.kaishengit.mapper.DeptMapper"/>
+        <mapper class="com.kaishengit.mapper.UserMapper"/>
+        <mapper class="com.kaishengit.mapper.TagMapper"/>
     </mappers>
 </configuration>
