@@ -10,7 +10,7 @@
         targetRuntime  -MyBatis3Simple  生成简单的CRUD
                        -MyBatis3 生成带Example类的CRUD
     -->
-    <context id="mybatisConfig" targetRuntime="MyBatis3Simple">
+    <context id="mybatisConfig" targetRuntime="MyBatis3">
      <!--禁用注释-->
         <commentGenerator>
             <!-- 是否去掉自动生成的注释 true是 false 否 -->
