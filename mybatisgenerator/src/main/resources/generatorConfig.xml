@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!--指定数据库驱动jar的位置-->
+    <classPathEntry location="H:\jar\mysql-connector-java-5.1.41.jar"/>
+    <!--
+        id 自定义、
+        targetRuntime  -MyBatis3Simple  生成简单的CRUD
+                       -MyBatis3 生成带Example类的CRUD
+    -->
+    <context id="mybatisConfig" targetRuntime="MyBatis3Simple">
+     <!--禁用注释-->
+        <commentGenerator>
+            <!-- 是否去掉自动生成的注释 true是 false 否 -->
+            <property name="suppressAllComments" value="true"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+
+        <!--连接数据库信息-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql:///stu"
+        userId="root" password="123123"/>
+        <!--生成实体类所在地址-->
+      <javaModelGenerator targetPackage="com.kaishengit.entity" targetProject="src/main/java"/>
+        <!--xml映射文件所在地址-->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources"/>
+        <!--mapper接口 基于xml-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.kaishengit.mapper" targetProject="src/main/java"/>
+      <!--table配置，将那个表生成对应的xml ,pojo,entity
+      当数据库表名为t_user时使用domainObjectName="User"
+      的属性值User设置实体类名字-->
+        <table tableName="student" />
+    </context>
+</generatorConfiguration>
