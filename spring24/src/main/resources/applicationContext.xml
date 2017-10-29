@@ -4,23 +4,44 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-<!--构造方法注入-->
+    <!--自动注入
+    如果为xml配置方式，一般不用自动注入
+    如果是注解配置方式，则用自动注入-->
+    <bean id="userDao" class="com.kaishengit.dao.UserDao"/>
+    <!--<bean id="userDao1" class="com.kaishengit.dao.UserDao"/>-->
+<!--自动提交设置autowire属性值
+      -默认值no
+      -byName根据set方法名字(id)从Spring容器中找
+      -byType根据set方法的参数类型......找到多个类型相同的会抛错
+      -constructor此时为构造方法注入。先根据构造方法名称，如果没有，再根据参数类型
+ -->
+    <!--<bean id="userService"
+          class="com.kaishengit.service.impl.UserServiceImpl"
+          autowire="constructor"/>
+-->
+    <bean id="userService"
+          class="com.kaishengit.service.impl.UserServiceImpl"
+          autowire="byName"/>
+
+<!--
+&lt;!&ndash;构造方法注入&ndash;&gt;
     <bean id="userDao" class="com.kaishengit.dao.UserDao"/>
 
-    <!--当没有无参的构造方法时，会抛错,因为有参的构造方法类,
-    name为参数名ref为被注入类在Spring容器中的名字-->
+    &lt;!&ndash;当没有无参的构造方法时，会抛错,因为有参的构造方法类,
+    name为参数名ref为被注入类在Spring容器中的名字&ndash;&gt;
     <bean id="userService" class="com.kaishengit.service.impl.UserServiceImpl">
-        <!--name注入 推荐使用-->
+        &lt;!&ndash;name注入 推荐使用&ndash;&gt;
         <constructor-arg name="userDao" ref="userDao"/>
         <constructor-arg name="name" value="dff"/>
-        <!--set和构造方法共用-->
+        &lt;!&ndash;set和构造方法共用&ndash;&gt;
         <property name="address" value="tianjin"/>
-        <!--index注入-->
-        <!--<constructor-arg index="0" ref="userDao"/>-->
-        <!--type注入 type="com.kaishengit.dao.UserDao" UserDao类型
-        有多个相同类型的参数就不行了-->
-       <!-- <constructor-arg type="com.kaishengit.dao.UserDao" ref="userDao"/> -->
+        &lt;!&ndash;index注入&ndash;&gt;
+        &lt;!&ndash;<constructor-arg index="0" ref="userDao"/>&ndash;&gt;
+        &lt;!&ndash;type注入 type="com.kaishengit.dao.UserDao" UserDao类型
+        有多个相同类型的参数就不行了&ndash;&gt;
+       &lt;!&ndash; <constructor-arg type="com.kaishengit.dao.UserDao" ref="userDao"/> &ndash;&gt;
     </bean>
+-->
 
 
 </beans>

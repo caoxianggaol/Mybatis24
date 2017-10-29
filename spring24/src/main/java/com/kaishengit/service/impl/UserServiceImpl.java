@@ -7,20 +7,16 @@ import com.kaishengit.service.UserService;
  * Created by xiaogao on 2017/10/28.
  */
 public class UserServiceImpl implements UserService {
-
+/*自动注入*/
     private UserDao userDao;
-    private String address;
 
-    public UserServiceImpl(){}
+    /*public UserServiceImpl(UserDao userDao){
+        this.userDao = userDao;
+    }*/
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public UserServiceImpl(UserDao userDao, String name){
+    public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }
-
 
     @Override
     public void save() {
