@@ -1,7 +1,6 @@
 package com.kaishengit.spring;
 
-import com.kaishengit.dao.UserDao;
-import com.kaishengit.service.UserService;
+
 import com.kaishengit.service.impl.UserServiceImpl;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;

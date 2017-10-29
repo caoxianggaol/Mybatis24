@@ -1,68 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
-<!--Bean管理-->
-    <!--name可以定义多个名  没用id和name时默认为完全限定名
-    <bean name ="userDao,myDao" class="com.kaishengit.dao.UserDao"/>-->
-    <!--scope="singleton"当为此设置时为单例模式，也是默认值
-    不是单例类时设置scope为prototype，作用：每次从Spring容器中获取的类的对象都不同-->
+
+<!--构造方法注入-->
     <bean id="userDao" class="com.kaishengit.dao.UserDao"/>
-    <!--  <alias name="userDao" alias="myDao"/>-->
 
-    <!--lazy-init="true"当为此设置时（懒加载）在调用getBean之前才加载，创建一次因为为单例
-    设置scope为prototype的类的对象在调用前才创建（懒加载）
-    <bean id="userDao" class="com.kaishengit.dao.UserDao" lazy-init="true"/>-->
-
-    <!--set注入-->
-   <!-- <bean id="userService" class="com.kaishengit.service.impl.UserServiceImpl">
-       &lt;!&ndash;name是set方法名（去掉set关键字首字母小写）
-       ref被注入类在Spring容器中的名字&ndash;&gt;
-        &lt;!&ndash;<property name="userDao" ref="userDao"/>&ndash;&gt;
-        &lt;!&ndash;其他注入法&ndash;&gt;
-        &lt;!&ndash;自己插入自己用&ndash;&gt;
-        <property name="userDao">
-            <bean class="com.kaishengit.dao.UserDao"/>
-        </property>
+    <!--当没有无参的构造方法时，会抛错,因为有参的构造方法类,
+    name为参数名ref为被注入类在Spring容器中的名字-->
+    <bean id="userService" class="com.kaishengit.service.impl.UserServiceImpl">
+        <!--name注入 推荐使用-->
+        <constructor-arg name="userDao" ref="userDao"/>
+        <constructor-arg name="name" value="dff"/>
+        <!--set和构造方法共用-->
+        <property name="address" value="tianjin"/>
+        <!--index注入-->
+        <!--<constructor-arg index="0" ref="userDao"/>-->
+        <!--type注入 type="com.kaishengit.dao.UserDao" UserDao类型
+        有多个相同类型的参数就不行了-->
+       <!-- <constructor-arg type="com.kaishengit.dao.UserDao" ref="userDao"/> -->
     </bean>
-    -->
 
-<!--p注入，添加头 xmlns:p="http://www.springframework.org/schema/p"，
-设置属性p:userDao-ref="userDao"-->
-   <!-- <bean id="bookService"
-          class="com.kaishengit.service.impl.UserServiceImpl"
-          p:userDao-ref="userDao"/>-->
 
-<!--基本类型即集合注入-->
-    <bean id="userService"
-          class="com.kaishengit.service.impl.UserServiceImpl">
-        <property name="userDao" ref="userDao"/>
-        <property name="id" value="1001"/>
-        <property name="name" value="jack"/>
-        <property name="nameaList">
-            <list>
-                <value>vggh</value>
-                <value>hiio</value>
-            </list>
-        </property>
-        <property name="userDaoSet">
-            <set>
-                <ref bean="userDao"/>
-            </set>
-        </property>
-       <!-- map中为键值对-->
-        <property name="userDaoMap">
-            <map>
-                <entry key="userDao1" value-ref="userDao"/>
-            </map>
-        </property>
-        <property name="properties">
-            <props>
-                <prop key="k1">v1</prop>
-                <prop key="k2">v2</prop>
-            </props>
-        </property>
-    </bean>
 </beans>
