@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import javax.inject.Named;
 
 /**
+ * Bean管理
  * Created by xiaogao on 2017/10/30.
  */
 /*@Lazy 懒加载*/

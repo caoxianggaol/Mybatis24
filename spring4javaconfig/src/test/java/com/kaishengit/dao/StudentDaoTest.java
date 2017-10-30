@@ -1,5 +1,7 @@
 package com.kaishengit.dao;
 
+import com.kaishengit.service.Impl.StudentServiceImpl;
+import com.kaishengit.service.StudentService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -10,7 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class StudentDaoTest {
 
-    @Test
+  /*  @Test
     public void hello() {
 
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -18,5 +20,15 @@ public class StudentDaoTest {
         StudentDao studentDao = (StudentDao) applicationContext.getBean("studentDao");
         studentDao.save();
 
+    }*/
+
+    @Test
+    public void save() {
+
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+
+        StudentService studentService = (StudentServiceImpl) applicationContext.getBean("studentServiceImpl");
+
+        studentService.save();
     }
 }
