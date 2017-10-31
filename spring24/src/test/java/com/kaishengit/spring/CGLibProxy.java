@@ -11,20 +11,20 @@ import org.junit.Test;
  */
 public class CGLibProxy {
 /*CGLib原理*/
-    @Test
-    public void proxy() {
+@Test
+public void proxy() {
 
-        Enhancer enhancer = new Enhancer();
+    Enhancer enhancer = new Enhancer();
         /*设置目标对象*/
-        enhancer.setSuperclass(UserDao.class);
-        //设置MethodInterceptor接口的实现类
-        enhancer.setCallback(new MyMethodInterceptor());
+    enhancer.setSuperclass(UserDao.class);
+    //设置MethodInterceptor接口的实现类
+    enhancer.setCallback(new MyMethodInterceptor());
         /*产生目标对象的子类（动态代理类） */
-        UserDao userDao = (UserDao) enhancer.create();
+    UserDao userDao = (UserDao) enhancer.create();
 
-        userDao.save();
+    userDao.save();
 
-    }
+}
 
 
 }
