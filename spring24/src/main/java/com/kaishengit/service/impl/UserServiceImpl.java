@@ -7,6 +7,7 @@ import com.kaishengit.service.UserService;
  * Created by xiaogao on 2017/10/28.
  */
 public class UserServiceImpl implements UserService {
+
     @Override
     public void save() {
         System.out.println("save");

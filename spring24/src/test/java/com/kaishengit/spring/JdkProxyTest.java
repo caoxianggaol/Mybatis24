@@ -5,6 +5,7 @@ import com.kaishengit.proxy.Dell;
 
 import com.kaishengit.proxy.Sales;
 import com.kaishengit.proxy.jdk.MyInvocationHandler;
+import com.kaishengit.proxy.jdk.TimeInvocationHandler;
 import com.kaishengit.service.UserService;
 import com.kaishengit.service.impl.UserServiceImpl;
 import org.junit.Test;
@@ -47,5 +48,17 @@ public class JdkProxyTest {
       userService.save();
       userService.update();
 
+   }
+
+   @Test
+   public void time() {
+
+        UserServiceImpl userServiceImpl = new UserServiceImpl();
+        TimeInvocationHandler timeInvocationHandler = new TimeInvocationHandler(userServiceImpl);
+        UserService userService = (UserService) Proxy.newProxyInstance(userServiceImpl.getClass().getClassLoader(),
+                userServiceImpl.getClass().getInterfaces(),timeInvocationHandler);
+
+        userService.save();
+        userService.update();
    }
 }

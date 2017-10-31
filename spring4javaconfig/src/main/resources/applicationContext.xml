@@ -6,8 +6,10 @@
           http://www.springframework.org/schema/context
           http://www.springframework.org/schema/context/spring-context.xsd">
 
-<!--1.添加context头-->
+<!--
+&lt;!&ndash;1.添加context头&ndash;&gt;
     <context:component-scan base-package="com.kaishengit"/>
+-->
 
 
 </beans>
