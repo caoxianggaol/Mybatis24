@@ -1,5 +1,6 @@
 package com.kaishengit.dao;
 
+import com.kaishengit.entity.Student;
 import com.kaishengit.service.Impl.StudentServiceImpl;
 import com.kaishengit.service.StudentService;
 import org.junit.Test;
@@ -29,6 +30,6 @@ public class StudentDaoTest {
 
         StudentService studentService = (StudentServiceImpl) applicationContext.getBean("studentServiceImpl");
 
-        studentService.save();
+
     }
 }

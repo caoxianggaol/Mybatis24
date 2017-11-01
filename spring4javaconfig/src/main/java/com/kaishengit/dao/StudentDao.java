@@ -1,6 +1,9 @@
 package com.kaishengit.dao;
 
 
+import com.kaishengit.entity.Student;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,8 +16,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class StudentDao {
 
-    /*public void save() {
-        System.out.println("--------------");
-    }*/
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    public void save(Student student) {
+       String sql = "insert into student(stu_name, stu_age) values(?,?)";
+       jdbcTemplate.update(sql,student.getStuName(),student.getStuAge());
+    }
 
 }

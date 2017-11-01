@@ -1,15 +1,18 @@
 package com.kaishengit.service.Impl;
 
 import com.kaishengit.dao.StudentDao;
+import com.kaishengit.entity.Student;
 import com.kaishengit.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by xiaogao on 2017/10/30.
  */
 /*交给bean管理*/
 @Service
+@Transactional
 public class StudentServiceImpl implements StudentService {
 
     /*注入方法一  其他注入1.JSR330注解-》@Inject来自—》javax.inject.Inject
@@ -30,10 +33,21 @@ public class StudentServiceImpl implements StudentService {
    }*/
 
 
-    @Override
+   /* @Override
     public void save() {
         studentDao.save();
+    }*/
+
+
+    @Override
+    public void save(Student student) {
+
+        studentDao.save(student);
+        if(1==1) {
+            throw new RuntimeException();
+        }
+        studentDao.save(student);
+
+
     }
-
-
 }
