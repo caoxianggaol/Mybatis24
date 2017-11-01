@@ -18,6 +18,13 @@ public class UserServiceImpl implements UserService {
         System.out.println("update");
     }
 
+    @Override
+    public int count() {
+        return 10;
+    }
+
+
+
 
 
 

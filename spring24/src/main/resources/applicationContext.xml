@@ -1,27 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <!--自动注入
+    <!--注入-->
+    <bean id="userService" class="com.kaishengit.service.impl.UserServiceImpl"/>
+
+<!--配置通知类-->
+    <bean id="aopAdvice" class="com.kaishengit.aop.AopAdvice"/>
+    <!--配置AOP-->
+    <aop:config>
+        <aop:aspect ref="aopAdvice">
+            <!--指定目表对象的范围 ：切入点表达式-->
+            <aop:pointcut id="pointcut" expression="execution(* com.kaishengit.service..*.*(..))"/>
+           <!-- &lt;!&ndash;前置通知&ndash;&gt;
+            <aop:before method="beforeAdvice" pointcut-ref="pointcut"/>
+            &lt;!&ndash;后直通知 returning 返回值赋给xx&ndash;&gt;
+            <aop:after-returning method="afterReturning" pointcut-ref="pointcut" returning="result"/>
+            &lt;!&ndash;异常  &ndash;&gt;
+            <aop:after-throwing method="afterThrowing" pointcut-ref="pointcut" throwing="ex"/>
+            &lt;!&ndash;最终  无论是否出现异常都执行 写在finally中&ndash;&gt;
+            <aop:after method="after" pointcut-ref="pointcut"/>-->
+            <!--环绕通知-->
+            <aop:around method="aroundAdvice" pointcut-ref="pointcut"/>
+        </aop:aspect>
+    </aop:config>
+
+
+
+
+<!--
+
+    &lt;!&ndash;自动注入
     如果为xml配置方式，一般不用自动注入
-    如果是注解配置方式，则用自动注入-->
+    如果是注解配置方式，则用自动注入&ndash;&gt;
     <bean id="userDao" class="com.kaishengit.dao.UserDao"/>
-    <!--<bean id="userDao1" class="com.kaishengit.dao.UserDao"/>-->
-<!--自动提交设置autowire属性值
+    &lt;!&ndash;<bean id="userDao1" class="com.kaishengit.dao.UserDao"/>&ndash;&gt;
+&lt;!&ndash;自动提交设置autowire属性值
       -默认值no
       -byName根据set方法名字(id)从Spring容器中找
       -byType根据set方法的参数类型......找到多个类型相同的会抛错
       -constructor此时为构造方法注入。先根据构造方法名称，如果没有，再根据参数类型
- -->
-    <!--<bean id="userService"
+ &ndash;&gt;
+    &lt;!&ndash;<bean id="userService"
           class="com.kaishengit.service.impl.UserServiceImpl"
           autowire="constructor"/>
--->
+&ndash;&gt;
     <bean id="userService"
           class="com.kaishengit.service.impl.UserServiceImpl"
           autowire="byName"/>
+-->
 
 <!--
 &lt;!&ndash;构造方法注入&ndash;&gt;

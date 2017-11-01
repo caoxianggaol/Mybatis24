@@ -10,6 +10,9 @@
 &lt;!&ndash;1.添加context头&ndash;&gt;
     <context:component-scan base-package="com.kaishengit"/>
 -->
+<!--配置通知类-->
+    <bean id="aopAdvice" class="com.kaishengit.aop.AopAdvice"/>
 
+    <!--配置AOP-->
 
 </beans>

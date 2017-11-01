@@ -1,4 +1,4 @@
-package com.kaishengit.spring;
+package com.kaishengit.proxy;
 
 import com.kaishengit.proxy.Dell;
 import com.kaishengit.proxy.Lenovo;
