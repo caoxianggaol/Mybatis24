@@ -32,4 +32,12 @@
     </bean>
     <!--<bean class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></bean>-->
 
+    <!--拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.kaishengit.controller.interceptor.MyInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
 </beans>

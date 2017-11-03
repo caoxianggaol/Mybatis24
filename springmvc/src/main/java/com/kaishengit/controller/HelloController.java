@@ -1,7 +1,11 @@
 package com.kaishengit.controller;
 
 import com.kaishengit.entity.User;
+
+
+
 import org.apache.commons.io.IOUtils;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -9,13 +13,19 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
  * Created by xiaogao on 2017/11/2.
  */
+/*@RestController（4.0+）在类上加此注解表示返回的所有值都为结果，而不是往视图跳，此时可以省略每个方法中的@ResponseBody注解*/
 @Controller
 public class HelloController {
     /*@RequestMapping(value = "/hello",method = {RequestMethod.GET,RequestMethod.POST})*/
@@ -103,4 +113,43 @@ public class HelloController {
         return "redirect:/save";
     }
 
+    /* @ResponseBody不加此注解回去找/WEB-INF/views/user.jsp路径 会抛404错误
+    /**加了此注解后抛500 No converter found for return value of type没有转换器对
+    返回值进行转换 所以需要在pom.xml中导入jackson库*/
+    @GetMapping("/user")
+    @ResponseBody
+    public User findById() {
+
+        User user = new User();
+        user.setId(30);
+        user.setUserName("小明");
+        user.setPassword("123123");
+        return user;
+
+    }
+
+    @GetMapping("/users")
+    @ResponseBody
+    public List<User> findAll() {
+        User user = new User();
+        user.setId(30);
+        user.setUserName("小明");
+        user.setPassword("123123");
+
+        User user2 = new User();
+        user2.setId(30);
+        user2.setUserName("tom");
+        user2.setPassword("123123");
+        return Arrays.asList(user,user2);
+    }
+
+    /*@CookieValue("JSESSIONID")取JSESSIONID的cook值给 sessionId*/
+    @GetMapping("/session")
+    public String show(HttpServletRequest request,
+                       HttpServletResponse response,
+                       HttpSession session,
+                      @CookieValue("JSESSIONID") String sessionId) {
+        session.setAttribute("aa","springMVC");
+        return "hello";
+    }
 }

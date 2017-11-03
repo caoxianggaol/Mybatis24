@@ -14,5 +14,6 @@
 <h2>Hello_______</h2>
 <h2>ID : ${id}</h2>
 <h2>TID ：${tId}</h2>
+<h2>session : ${sessionScope.aa}</h2>
 </body>
 </html>
