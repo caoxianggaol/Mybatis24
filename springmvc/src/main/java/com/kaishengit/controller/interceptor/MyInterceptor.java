@@ -16,5 +16,5 @@ public class MyInterceptor extends HandlerInterceptorAdapter{
 
         System.out.println("--------");
         return true;//先过拦截器，再过HelloController为false时不放行 为true时放行
-    }//静态资源同样会过拦截器  
+    }//静态资源同样会过拦截器
 }
