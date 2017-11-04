@@ -17,6 +17,8 @@ public class Kaola {
 
     private Integer typeId;
 
+    private KaolaType kaolaType;
+
     public Integer getId() {
         return id;
     }
@@ -71,5 +73,18 @@ public class Kaola {
 
     public void setTypeId(Integer typeId) {
         this.typeId = typeId;
+    }
+
+    public KaolaType getKaolaType() {
+        return kaolaType;
+    }
+
+    public void setKaolaType(KaolaType kaolaType) {
+        this.kaolaType = kaolaType;
+    }
+
+    @Override
+    public String toString() {
+        return "Kaola{" + "id=" + id + ", productName='" + productName + '\'' + ", price=" + price + ", marketPrice=" + marketPrice + ", place='" + place + '\'' + ", commentNum=" + commentNum + ", typeId=" + typeId + ", kaolaType=" + kaolaType + '}';
     }
 }

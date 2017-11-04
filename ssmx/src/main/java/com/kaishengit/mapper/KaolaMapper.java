@@ -28,4 +28,10 @@ public interface KaolaMapper {
     int updateByPrimaryKeySelective(Kaola record);
 
     int updateByPrimaryKey(Kaola record);
+
+    /*查分类*/
+     List<Kaola> findWithType();
+     /*搜索*/
+     List<Kaola> findByproductNameWithType(@Param("productName") String productName);
+     List<String> findAllPlace();
 }

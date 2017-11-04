@@ -14,7 +14,9 @@ public interface KaolaService {
     Kaola findById(Integer id);
 
     PageInfo<Kaola> findByPageNo(Integer pageNo);
-
+/*各种搜索*/
+    PageInfo<Kaola> findByPageNo(Integer pageNo,String productName);
+    List<String> findProductPlaceList();
 
     /**
      * 获取所有商品类型
@@ -27,4 +29,8 @@ public interface KaolaService {
     void editKaola(Kaola kaola);
 
     void deleteKaolaById(Integer id);
+
+
+
+
 }

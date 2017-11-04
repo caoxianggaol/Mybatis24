@@ -164,6 +164,39 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+  <!--DISTINCT去重-->
+  <select id="findAllPlace" resultType="java.lang.String">
+    SELECT DISTINCT(place) from kaola
+  </select>
+  <!--分类-->
+  <select id="findWithType" resultType="com.kaishengit.entity.Kaola">
+    SELECT
+      kaola.*, kaola_type.id AS 'kaolaType.id',
+               type_name AS 'kaolaType.typeName',
+               parent_id AS 'typeName.parentId'
+    FROM
+      kaola
+      INNER JOIN kaola_type ON kaola.type_id = kaola_type.id
+    ORDER BY
+      kaola.id DESC
+  </select>
+  <select id="findByproductNameWithType" resultType="com.kaishengit.entity.Kaola">
+    SELECT
+      kaola.*, kaola_type.id AS 'kaolaType.id',
+               type_name AS 'kaolaType.typeName',
+               parent_id AS 'typeName.parentId'
+    FROM
+      kaola
+      INNER JOIN kaola_type ON kaola.type_id = kaola_type.id
+      <where>
+        <if test="productName != null and productName != '' ">
+            kaola.product_name LIKE #{productName}
+        </if>
+      </where>
+    ORDER BY
+      kaola.id DESC
+  </select>
+
 
   <update id="updateByExampleSelective" parameterType="map">
     update kaola

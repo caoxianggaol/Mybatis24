@@ -21,12 +21,16 @@ public class KaolaController {
 
     @Autowired
     private KaolaService kaolaService;
-/*不写路径，则默认为类上面加的路劲*/
+/*不写路径，则默认为类上面加的路劲
+* 各种搜索查询*/
     @GetMapping
     public String list(@RequestParam(name = "p",required = false,defaultValue = "1") Integer pageNo,
+                       @RequestParam(required = false, defaultValue = "")String productName,
                        Model model) {
-        PageInfo<Kaola> pageInfo = kaolaService.findByPageNo(pageNo);
+        PageInfo<Kaola> pageInfo = kaolaService.findByPageNo(pageNo,productName);
+
         model.addAttribute("pageInfo",pageInfo);
+        model.addAttribute("placeList",kaolaService.findProductPlaceList());
         return "product/list";
     }
     /* 1 */

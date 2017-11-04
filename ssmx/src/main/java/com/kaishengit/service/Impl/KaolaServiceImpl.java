@@ -27,17 +27,29 @@ public class KaolaServiceImpl implements KaolaService {
     private KaolaTypeMapper kaolaTypeMapper;
     @Override
     public Kaola findById(Integer id) {
-        return kaolaMapper.selectByPrimaryKey(id);
+        Kaola kaola = kaolaMapper.selectByPrimaryKey(id);
+        kaola.setKaolaType(kaolaTypeMapper.selectByPrimaryKey(kaola.getTypeId()));
+        return kaola;//这种做法会出现n+1，单个商品可行
     }
 
+    /*分类查询*/
     @Override
     public PageInfo<Kaola> findByPageNo(Integer pageNo) {
         PageHelper.startPage(pageNo,10);
 
-        KaolaExample kaolaExample = new KaolaExample();
-        kaolaExample.setOrderByClause("id desc");
+    /*    KaolaExample kaolaExample = new KaolaExample();
+        kaolaExample.setOrderByClause("id desc");*/
 
-        List<Kaola> list = kaolaMapper.selectByExample(kaolaExample);
+        //List<Kaola> list = kaolaMapper.selectByExample(kaolaExample);
+        List<Kaola> list = kaolaMapper.findWithType();
+        return new PageInfo<Kaola>(list);
+    }
+
+    @Override
+    public PageInfo<Kaola> findByPageNo(Integer pageNo, String productName) {
+        PageHelper.startPage(pageNo,10);
+
+        List<Kaola> list = kaolaMapper.findByproductNameWithType("%"+productName+"%");
         return new PageInfo<Kaola>(list);
     }
 
@@ -57,6 +69,12 @@ public class KaolaServiceImpl implements KaolaService {
     @Override
     public void deleteKaolaById(Integer id) {
         kaolaMapper.deleteByPrimaryKey(id);
+    }
+
+    /*产地搜索*/
+    @Override
+    public List<String> findProductPlaceList() {
+        return kaolaMapper.findAllPlace();
     }
 
     /**
