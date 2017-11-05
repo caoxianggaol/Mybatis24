@@ -180,7 +180,7 @@
     ORDER BY
       kaola.id DESC
   </select>
-  <select id="findByproductNameWithType" resultType="com.kaishengit.entity.Kaola">
+  <select id="findByQueryParamWithType" resultType="com.kaishengit.entity.Kaola">
     SELECT
       kaola.*, kaola_type.id AS 'kaolaType.id',
                type_name AS 'kaolaType.typeName',
@@ -190,7 +190,13 @@
       INNER JOIN kaola_type ON kaola.type_id = kaola_type.id
       <where>
         <if test="productName != null and productName != '' ">
-            kaola.product_name LIKE #{productName}
+            kaola.product_name LIKE concat('%',#{productName},'%')
+        </if>
+        <if test="place != null and place != '' ">
+            and kaola.place = #{place}
+        </if>
+        <if test="typeId != null and typeId != '' ">
+          and kaola.type_id = #{typeId}
         </if>
       </where>
     ORDER BY

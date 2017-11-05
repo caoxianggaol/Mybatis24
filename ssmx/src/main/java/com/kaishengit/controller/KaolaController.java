@@ -1,6 +1,7 @@
 package com.kaishengit.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Maps;
 import com.kaishengit.entity.Kaola;
 import com.kaishengit.entity.KaolaType;
 import com.kaishengit.service.KaolaService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by xiaogao on 2017/11/4.
@@ -23,14 +25,23 @@ public class KaolaController {
     private KaolaService kaolaService;
 /*不写路径，则默认为类上面加的路劲
 * 各种搜索查询*/
-    @GetMapping
+    @GetMapping//接受数据
     public String list(@RequestParam(name = "p",required = false,defaultValue = "1") Integer pageNo,
                        @RequestParam(required = false, defaultValue = "")String productName,
+                       @RequestParam(required = false, defaultValue = "")String place,
+                       @RequestParam(required = false, defaultValue = "")Integer typeId,
                        Model model) {
-        PageInfo<Kaola> pageInfo = kaolaService.findByPageNo(pageNo,productName);
 
+        Map<String,Object> queryParam = Maps.newHashMap();
+        queryParam.put("productName",productName);
+        queryParam.put("place",place);
+        queryParam.put("typeId",typeId);
+
+        PageInfo<Kaola> pageInfo = kaolaService.findByPageNo(pageNo,queryParam);
+        /*传到钱多页面*/
         model.addAttribute("pageInfo",pageInfo);
         model.addAttribute("placeList",kaolaService.findProductPlaceList());
+        model.addAttribute("typeList",kaolaService.findAllType());
         return "product/list";
     }
     /* 1 */
@@ -58,6 +69,7 @@ public class KaolaController {
 
     @GetMapping("/{id:\\d+}/edit")
     public String editProduct(@PathVariable Integer id, Model model) {
+
         model.addAttribute("typeList",kaolaService.findAllType());
         model.addAttribute("product",kaolaService.findById(id));
 
@@ -66,7 +78,7 @@ public class KaolaController {
 
     @PostMapping("/{id:\\d+}/edit")
     public String editProduct(Kaola kaola, RedirectAttributes redirectAttributes) {
-        System.out.println(kaola.getProductName());
+       // System.out.println(kaola.getProductName());
         kaolaService.editKaola(kaola);
         redirectAttributes.addFlashAttribute("message","修改成功");
         return "redirect:/product/"+kaola.getId();

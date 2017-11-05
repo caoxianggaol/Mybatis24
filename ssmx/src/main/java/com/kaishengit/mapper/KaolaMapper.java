@@ -3,6 +3,8 @@ package com.kaishengit.mapper;
 import com.kaishengit.entity.Kaola;
 import com.kaishengit.entity.KaolaExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,6 @@ public interface KaolaMapper {
     /*查分类*/
      List<Kaola> findWithType();
      /*搜索*/
-     List<Kaola> findByproductNameWithType(@Param("productName") String productName);
+     List<Kaola> findByQueryParamWithType(Map<String, Object> queryParam);
      List<String> findAllPlace();
 }

@@ -5,6 +5,7 @@ import com.kaishengit.entity.Kaola;
 import com.kaishengit.entity.KaolaType;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by xiaogao on 2017/11/4.
@@ -15,7 +16,7 @@ public interface KaolaService {
 
     PageInfo<Kaola> findByPageNo(Integer pageNo);
 /*各种搜索*/
-    PageInfo<Kaola> findByPageNo(Integer pageNo,String productName);
+    PageInfo<Kaola> findByPageNo(Integer pageNo,Map<String,Object> queryParam);
     List<String> findProductPlaceList();
 
     /**

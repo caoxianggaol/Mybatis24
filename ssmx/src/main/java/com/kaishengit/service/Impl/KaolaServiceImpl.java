@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -46,10 +47,10 @@ public class KaolaServiceImpl implements KaolaService {
     }
 
     @Override
-    public PageInfo<Kaola> findByPageNo(Integer pageNo, String productName) {
+    public PageInfo<Kaola> findByPageNo(Integer pageNo, Map<String, Object> queryParam) {
         PageHelper.startPage(pageNo,10);
 
-        List<Kaola> list = kaolaMapper.findByproductNameWithType("%"+productName+"%");
+        List<Kaola> list = kaolaMapper.findByQueryParamWithType(queryParam);
         return new PageInfo<Kaola>(list);
     }
 

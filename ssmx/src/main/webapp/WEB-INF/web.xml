@@ -10,7 +10,7 @@
         <filter-name>encodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
         <init-param>
-            <param-name>endcoding</param-name>
+            <param-name>encoding</param-name>
             <param-value>UTF-8</param-value>
         </init-param>
         <init-param>
@@ -22,7 +22,6 @@
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
     <!--springMVC的中央控制器-->
     <servlet>
         <servlet-name>mvc</servlet-name>
