@@ -17,6 +17,10 @@ public class HomeController {
     @Autowired
     private AccountService accountService;
 
+    /**
+     * 来到登录页面
+     * @return
+     */
     @GetMapping("/")
     public String login() {
         return "index";
@@ -42,9 +46,25 @@ public class HomeController {
         }
     }
 
+    /**
+     * 去登陆后的页面
+     * @return
+     */
     @GetMapping("/home")
     public String home() {
         return "home";
     }
 
+    /**
+     * 安全退出
+     * @return
+     */
+    @GetMapping("/logout")
+    public String logout(HttpSession session,RedirectAttributes redirectAttributes) {
+        /*清空session*/
+        session.invalidate();
+        redirectAttributes.addFlashAttribute("message","安全退出系统");
+
+        return "redirect:/";
+    }
 }
