@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- 左侧菜单栏 -->
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -17,32 +18,32 @@
         <!-- /.search form -->
         <!-- 菜单 -->
         <ul class="sidebar-menu">
-            <li class="${param.menu == 'home' ? 'active' : ''}"><a href="/home"><i class="fa fa-home"></i> <span>首页</span></a></li>
+            <li class="${param.menu == 'home' ? 'active' : ''}"><a href="/home">
+                <i class="fa fa-home"></i> <span>首页</span></a></li>
             <li class="header">系统功能</li>
             <!-- 客户管理 -->
-            <li class="treeview">
+            <li class="treeview ${fn:startsWith(param.menu, 'customer_') ? 'active' : ''}">
                 <a href="#">
                     <i class="fa fa-address-book-o"></i> <span>客户管理</span>
-                    <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i>
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/customer/my"><i class="fa fa-circle-o"></i> 我的客户</a></li>
-                    <li><a href="/customer/public"><i class="fa fa-circle-o"></i> 公海客户</a></li>
+                    <li class="${param.menu == 'customer_my' ? 'active' : ''}"><a href="/customer/my"><i class="fa fa-circle-o"></i> 我的客户</a></li>
+                    <li class="${param.menu == 'customer_public' ? 'active' : ''}"><a href="/customer/public"><i class="fa fa-circle-o"></i> 公海客户</a></li>
                 </ul>
             </li>
-            <!-- 工作记录 -->
-            <li class="treeview">
+
+            <!-- 销售机会 -->
+            <li class="treeview ${fn:startsWith(param.menu,'smy') ? 'active' : ''}">
                 <a href="#">
-                    <i class="fa fa-bars"></i> <span>工作记录</span>
+                    <i class="fa fa-bars"></i> <span>销售机会</span>
                     <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="/recode/my"><i class="fa fa-circle-o"></i> 我的记录</a></li>
-                    <li><a href="/recode/public"><i class="fa fa-circle-o"></i> 公共记录</a></li>
+                    <li class="${param.menu == 'smy' ? 'active' : ''}"><a href="/sales/smy"><i class="fa fa-circle-o"></i>我的机会</a></li>
                 </ul>
             </li>
             <!-- 待办事项 -->

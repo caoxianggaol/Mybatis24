@@ -206,4 +206,9 @@ public class AccountServiceImpl implements AccountService {
         //2.删除账号
         accountMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public List<Account> findAllAccount() {
+        return accountMapper.selectByExample(new AccountExample());
+    }
 }
