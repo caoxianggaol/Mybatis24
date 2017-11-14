@@ -17,6 +17,7 @@
     <title>凯盛软件CRM | 我的客户</title>
     <%@include file="../include/css.jsp"%>
     <style>
+        /*截取的第一个字的样式*/
         .name-avatar {
             display: inline-block;
             width: 50px;
@@ -34,6 +35,7 @@
         .table>tbody>tr>td {
             vertical-align: middle;
         }
+        /*星星*/
         .star {
             font-size: 20px;
             color: #ff7400;

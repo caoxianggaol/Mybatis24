@@ -241,7 +241,8 @@ public class CustomerServiceImpl implements CustomerService{
         outputStream.close();
     }
 /*查询所有客户*/
-    private List<Customer> findAllCustomerByAccountId(Account account) {
+    @Override
+    public List<Customer> findAllCustomerByAccountId(Account account) {
         CustomerExample customerExample = new CustomerExample();
         customerExample.createCriteria().andAccountIdEqualTo(account.getId());
         List<Customer> customerList = customerMapper.selectByExample(customerExample);

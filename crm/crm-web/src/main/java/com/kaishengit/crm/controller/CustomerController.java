@@ -5,8 +5,10 @@ import com.kaishengit.crm.controller.exception.ForbiddenException;
 import com.kaishengit.crm.controller.exception.NotFoundEXception;
 import com.kaishengit.crm.entity.Account;
 import com.kaishengit.crm.entity.Customer;
+import com.kaishengit.crm.entity.SaleChance;
 import com.kaishengit.crm.service.AccountService;
 import com.kaishengit.crm.service.CustomerService;
+import com.kaishengit.crm.service.SaleChanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 
 /**
  * 客户管理控制器
@@ -31,6 +34,9 @@ public class CustomerController extends BaseController{
     /*显示所有用户使用（用于转交他人列表）*/
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private SaleChanceService saleChanceService;
 
     /**
      * 我的客户 页面
@@ -103,6 +109,10 @@ public class CustomerController extends BaseController{
                                Model model) {
         Customer customer = checkCustomerRole(id,httpSession);
 
+        //查询客户关联的销售机会列表
+        List<SaleChance> saleChanceList = saleChanceService.findSaleChanceByCustId(id);
+
+        model.addAttribute("saleChanceList",saleChanceList);
         model.addAttribute("customer",customer);
        /*用于显示转交他人列表，查询所有account，前端c:if  accountList*/
        model.addAttribute("accountList",accountService.findAllAccount());

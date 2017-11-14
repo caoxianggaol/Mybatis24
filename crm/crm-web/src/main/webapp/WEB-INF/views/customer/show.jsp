@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>凯盛软件CRM |客户资料</title>
     <%@include file="../include/css.jsp" %>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
@@ -86,7 +87,13 @@
                             <h3 class="box-title">跟进记录</h3>
                         </div>
                         <div class="box-body">
-
+                            <ul class="list-group">
+                                <c:forEach items="${saleChanceList}" var="chance">
+                                    <li class="list-group-item">
+                                        <a href="/sales/smy/${chance.id}" target="_blank">${chance.name}</a>
+                                    </li>
+                                </c:forEach>
+                            </ul>
                         </div>
                     </div>
                 </div>
