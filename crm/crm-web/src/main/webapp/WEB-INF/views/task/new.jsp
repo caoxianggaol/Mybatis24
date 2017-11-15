@@ -4,8 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>凯盛软件CRM | 逾期事项</title>
+    <title>凯盛软件CRM | 新增任务</title>
     <%@include file="../include/css.jsp"%>
+    <link rel="stylesheet" href="/static/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="/static/plugins/datepicker/datepicker3.css">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
@@ -29,7 +31,7 @@
             <!-- Default box -->
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">新增待办任务</h3>
+                    <h3 class="box-title">新增待办事项</h3>
 
                     <div class="box-tools pull-right">
                         <a href="/task/list" type="button" class="btn btn-box-tool">
@@ -38,24 +40,25 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <form action="">
+                    <form method="post" id="saveForm">
+                        <input type="hidden" name="accountId" value="${sessionScope.curr_account.id}">
                         <div class="form-group">
                             <label>任务名称</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="title">
                         </div>
                         <div class="form-group">
                             <label>完成日期</label>
-                            <input type="text" class="form-control" id="datepicker">
+                            <input type="text" class="form-control" id="datepicker" name="finishTime">
                         </div>
                         <div class="form-group">
                             <label>提醒时间</label>
-                            <input type="text" class="form-control" id="datepicker2">
+                            <input type="text" class="form-control" id="datepicker2" name="remindTime">
                         </div>
                     </form>
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
-                    <button class="btn btn-primary">保存</button>
+                    <button class="btn btn-primary" id="saveBtn">保存</button>
                 </div>
             </div>
             <!-- /.box -->
@@ -71,5 +74,60 @@
 <!-- ./wrapper -->
 <%--底部--%>
 <%@include file="../include/js.jsp"%>
+<script src="/static/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/static/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="/static/plugins/moment/moment.js"></script>
+<script src="/static/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="/static/plugins/datepicker/locales/bootstrap-datepicker.zh-CN.js"></script>
+<script src="/static/plugins/validate/jquery.validate.min.js"></script>
+<script>
+    $(function () {
+        var picker = $('#datepicker').datepicker({
+            format: "yyyy-mm-dd",
+            language: "zh-CN",
+            autoclose: true,
+            todayHighlight: true,
+            startDate:moment().format("yyyy-MM-dd")
+        });
+        picker.on("changeDate",function (e) {
+            var today = moment().format("YYYY-MM-DD");
+            $('#datepicker2').datetimepicker('setStartDate',today);
+            $('#datepicker2').datetimepicker('setEndDate', e.format('yyyy-mm-dd'));
+        });
+
+
+        var timepicker = $('#datepicker2').datetimepicker({
+            format: "yyyy-mm-dd hh:ii",
+            language: "zh-CN",
+            autoclose: true,
+            todayHighlight: true
+        });
+
+        $("#saveBtn").click(function () {
+            $("#saveForm").submit();
+        });
+
+        $("#saveForm").validate({
+            errorClass:"text-danger",
+            errorElement:"span",
+            rules:{
+                title:{
+                    required:true
+                },
+                finishTime:{
+                    required:true
+                }
+            },
+            messages:{
+                title:{
+                    required:"请输入任务内容"
+                },
+                finishTime:{
+                    required:"请选择完成时间"
+                }
+            }
+        });
+    });
+</script>
 </body>
 </html>

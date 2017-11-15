@@ -1,5 +1,12 @@
 package com.kaishengit.crm.entity;
 
+
+
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -14,12 +21,12 @@ public class Task implements Serializable {
     /**
      * 完成时间
      */
-    private Date finishTime;
+    private String finishTime;
 
     /**
      * 提醒时间
      */
-    private Date remindTime;
+    private String remindTime;
 
     /**
      * 状态 （是否完成）
@@ -52,19 +59,19 @@ public class Task implements Serializable {
         this.title = title;
     }
 
-    public Date getFinishTime() {
+    public String getFinishTime() {
         return finishTime;
     }
 
-    public void setFinishTime(Date finishTime) {
+    public void setFinishTime(String finishTime) {
         this.finishTime = finishTime;
     }
 
-    public Date getRemindTime() {
+    public String getRemindTime() {
         return remindTime;
     }
 
-    public void setRemindTime(Date remindTime) {
+    public void setRemindTime(String remindTime) {
         this.remindTime = remindTime;
     }
 
@@ -106,5 +113,18 @@ public class Task implements Serializable {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    /**
+     * 判断是否逾期
+     * @return true 逾期 false 正常
+     */
+    public boolean isOverTime() {
+
+        //String -> DateTime 来自<artifactId>joda-time</artifactId>
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+        DateTime finishTime = formatter.parseDateTime(getFinishTime());
+        return finishTime.isBeforeNow();
+
     }
 }

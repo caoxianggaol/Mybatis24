@@ -29,6 +29,7 @@
             font-size: 24px;
             color: #FFF;
         }
+        /*小手*/
         .table>tbody>tr:hover {
             cursor: pointer;
         }

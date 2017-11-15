@@ -9,6 +9,14 @@
     <title>凯盛软件CRM |客户资料</title>
     <%@include file="../include/css.jsp" %>
 
+    <style>
+        .table>tbody>tr:hover {
+            cursor: pointer;
+        }
+        .table>tbody>tr>td {
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Site wrapper -->
@@ -73,7 +81,7 @@
                         </c:if>
                     </table>
                 </div>
-                <div class="box-footer">
+                <div class="box-header with-border">
                     <span style="color: #ccc" class="pull-right">
                         创建日期:<span title="<fmt:formatDate value="${customer.createTime}"/>"><fmt:formatDate value="${customer.createTime}" pattern="MM月dd日"/></span>  &nbsp;&nbsp;&nbsp;&nbsp;
                         最后修改日期：<span title="<fmt:formatDate value="${customer.updateTime}"/>"><fmt:formatDate value="${customer.updateTime}" pattern="MM月dd日"/></span></span>

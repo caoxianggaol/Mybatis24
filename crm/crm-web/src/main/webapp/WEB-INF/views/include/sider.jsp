@@ -55,8 +55,8 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="${param.menu == 'task_list' ? 'active' : ''}"><a href="/task/list"><i class="fa fa-circle-o"></i> 待办列表</a></li>
-                    <li class="${param.menu == 'task_new' ? 'active' : ''}"><a href="/task/new"><i class="fa fa-circle-o"></i> 逾期事项</a></li>
+                    <li class="${param.menu == 'task_list' ? 'active' : ''}"><a href="/task"><i class="fa fa-circle-o"></i> 待办列表</a></li>
+                    <li class="${param.menu == 'task_new' ? 'active' : ''}"><a href=""><i class="fa fa-circle-o"></i> 逾期事项</a></li>
                 </ul>
             </li>
             <!-- 统计报表 -->

@@ -4,8 +4,8 @@
   <resultMap id="BaseResultMap" type="com.kaishengit.crm.entity.Task">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
-    <result column="remind_time" jdbcType="TIMESTAMP" property="remindTime" />
+    <result column="finish_time" jdbcType="VARCHAR" property="finishTime" />
+    <result column="remind_time" jdbcType="VARCHAR" property="remindTime" />
     <result column="done" jdbcType="VARCHAR" property="done" />
     <result column="account_id" jdbcType="INTEGER" property="accountId" />
     <result column="cust_id" jdbcType="INTEGER" property="custId" />
@@ -108,8 +108,8 @@
       remind_time, done, account_id, 
       cust_id, sale_id, create_time
       )
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{finishTime,jdbcType=TIMESTAMP}, 
-      #{remindTime,jdbcType=TIMESTAMP}, #{done,jdbcType=VARCHAR}, #{accountId,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{finishTime,jdbcType=VARCHAR}, 
+      #{remindTime,jdbcType=VARCHAR}, #{done,jdbcType=VARCHAR}, #{accountId,jdbcType=INTEGER}, 
       #{custId,jdbcType=INTEGER}, #{saleId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -152,10 +152,10 @@
         #{title,jdbcType=VARCHAR},
       </if>
       <if test="finishTime != null">
-        #{finishTime,jdbcType=TIMESTAMP},
+        #{finishTime,jdbcType=VARCHAR},
       </if>
       <if test="remindTime != null">
-        #{remindTime,jdbcType=TIMESTAMP},
+        #{remindTime,jdbcType=VARCHAR},
       </if>
       <if test="done != null">
         #{done,jdbcType=VARCHAR},
@@ -190,10 +190,10 @@
         title = #{record.title,jdbcType=VARCHAR},
       </if>
       <if test="record.finishTime != null">
-        finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+        finish_time = #{record.finishTime,jdbcType=VARCHAR},
       </if>
       <if test="record.remindTime != null">
-        remind_time = #{record.remindTime,jdbcType=TIMESTAMP},
+        remind_time = #{record.remindTime,jdbcType=VARCHAR},
       </if>
       <if test="record.done != null">
         done = #{record.done,jdbcType=VARCHAR},
@@ -219,8 +219,8 @@
     update task
     set id = #{record.id,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
-      finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
-      remind_time = #{record.remindTime,jdbcType=TIMESTAMP},
+      finish_time = #{record.finishTime,jdbcType=VARCHAR},
+      remind_time = #{record.remindTime,jdbcType=VARCHAR},
       done = #{record.done,jdbcType=VARCHAR},
       account_id = #{record.accountId,jdbcType=INTEGER},
       cust_id = #{record.custId,jdbcType=INTEGER},
@@ -237,10 +237,10 @@
         title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="finishTime != null">
-        finish_time = #{finishTime,jdbcType=TIMESTAMP},
+        finish_time = #{finishTime,jdbcType=VARCHAR},
       </if>
       <if test="remindTime != null">
-        remind_time = #{remindTime,jdbcType=TIMESTAMP},
+        remind_time = #{remindTime,jdbcType=VARCHAR},
       </if>
       <if test="done != null">
         done = #{done,jdbcType=VARCHAR},
@@ -263,8 +263,8 @@
   <update id="updateByPrimaryKey" parameterType="com.kaishengit.crm.entity.Task">
     update task
     set title = #{title,jdbcType=VARCHAR},
-      finish_time = #{finishTime,jdbcType=TIMESTAMP},
-      remind_time = #{remindTime,jdbcType=TIMESTAMP},
+      finish_time = #{finishTime,jdbcType=VARCHAR},
+      remind_time = #{remindTime,jdbcType=VARCHAR},
       done = #{done,jdbcType=VARCHAR},
       account_id = #{accountId,jdbcType=INTEGER},
       cust_id = #{custId,jdbcType=INTEGER},

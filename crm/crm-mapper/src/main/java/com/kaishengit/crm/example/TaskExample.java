@@ -245,52 +245,62 @@ public class TaskExample {
             return (Criteria) this;
         }
 
-        public Criteria andFinishTimeEqualTo(Date value) {
+        public Criteria andFinishTimeEqualTo(String value) {
             addCriterion("finish_time =", value, "finishTime");
             return (Criteria) this;
         }
 
-        public Criteria andFinishTimeNotEqualTo(Date value) {
+        public Criteria andFinishTimeNotEqualTo(String value) {
             addCriterion("finish_time <>", value, "finishTime");
             return (Criteria) this;
         }
 
-        public Criteria andFinishTimeGreaterThan(Date value) {
+        public Criteria andFinishTimeGreaterThan(String value) {
             addCriterion("finish_time >", value, "finishTime");
             return (Criteria) this;
         }
 
-        public Criteria andFinishTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andFinishTimeGreaterThanOrEqualTo(String value) {
             addCriterion("finish_time >=", value, "finishTime");
             return (Criteria) this;
         }
 
-        public Criteria andFinishTimeLessThan(Date value) {
+        public Criteria andFinishTimeLessThan(String value) {
             addCriterion("finish_time <", value, "finishTime");
             return (Criteria) this;
         }
 
-        public Criteria andFinishTimeLessThanOrEqualTo(Date value) {
+        public Criteria andFinishTimeLessThanOrEqualTo(String value) {
             addCriterion("finish_time <=", value, "finishTime");
             return (Criteria) this;
         }
 
-        public Criteria andFinishTimeIn(List<Date> values) {
+        public Criteria andFinishTimeLike(String value) {
+            addCriterion("finish_time like", value, "finishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishTimeNotLike(String value) {
+            addCriterion("finish_time not like", value, "finishTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishTimeIn(List<String> values) {
             addCriterion("finish_time in", values, "finishTime");
             return (Criteria) this;
         }
 
-        public Criteria andFinishTimeNotIn(List<Date> values) {
+        public Criteria andFinishTimeNotIn(List<String> values) {
             addCriterion("finish_time not in", values, "finishTime");
             return (Criteria) this;
         }
 
-        public Criteria andFinishTimeBetween(Date value1, Date value2) {
+        public Criteria andFinishTimeBetween(String value1, String value2) {
             addCriterion("finish_time between", value1, value2, "finishTime");
             return (Criteria) this;
         }
 
-        public Criteria andFinishTimeNotBetween(Date value1, Date value2) {
+        public Criteria andFinishTimeNotBetween(String value1, String value2) {
             addCriterion("finish_time not between", value1, value2, "finishTime");
             return (Criteria) this;
         }
@@ -305,52 +315,62 @@ public class TaskExample {
             return (Criteria) this;
         }
 
-        public Criteria andRemindTimeEqualTo(Date value) {
+        public Criteria andRemindTimeEqualTo(String value) {
             addCriterion("remind_time =", value, "remindTime");
             return (Criteria) this;
         }
 
-        public Criteria andRemindTimeNotEqualTo(Date value) {
+        public Criteria andRemindTimeNotEqualTo(String value) {
             addCriterion("remind_time <>", value, "remindTime");
             return (Criteria) this;
         }
 
-        public Criteria andRemindTimeGreaterThan(Date value) {
+        public Criteria andRemindTimeGreaterThan(String value) {
             addCriterion("remind_time >", value, "remindTime");
             return (Criteria) this;
         }
 
-        public Criteria andRemindTimeGreaterThanOrEqualTo(Date value) {
+        public Criteria andRemindTimeGreaterThanOrEqualTo(String value) {
             addCriterion("remind_time >=", value, "remindTime");
             return (Criteria) this;
         }
 
-        public Criteria andRemindTimeLessThan(Date value) {
+        public Criteria andRemindTimeLessThan(String value) {
             addCriterion("remind_time <", value, "remindTime");
             return (Criteria) this;
         }
 
-        public Criteria andRemindTimeLessThanOrEqualTo(Date value) {
+        public Criteria andRemindTimeLessThanOrEqualTo(String value) {
             addCriterion("remind_time <=", value, "remindTime");
             return (Criteria) this;
         }
 
-        public Criteria andRemindTimeIn(List<Date> values) {
+        public Criteria andRemindTimeLike(String value) {
+            addCriterion("remind_time like", value, "remindTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemindTimeNotLike(String value) {
+            addCriterion("remind_time not like", value, "remindTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemindTimeIn(List<String> values) {
             addCriterion("remind_time in", values, "remindTime");
             return (Criteria) this;
         }
 
-        public Criteria andRemindTimeNotIn(List<Date> values) {
+        public Criteria andRemindTimeNotIn(List<String> values) {
             addCriterion("remind_time not in", values, "remindTime");
             return (Criteria) this;
         }
 
-        public Criteria andRemindTimeBetween(Date value1, Date value2) {
+        public Criteria andRemindTimeBetween(String value1, String value2) {
             addCriterion("remind_time between", value1, value2, "remindTime");
             return (Criteria) this;
         }
 
-        public Criteria andRemindTimeNotBetween(Date value1, Date value2) {
+        public Criteria andRemindTimeNotBetween(String value1, String value2) {
             addCriterion("remind_time not between", value1, value2, "remindTime");
             return (Criteria) this;
         }
