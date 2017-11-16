@@ -33,7 +33,7 @@ public class TimerTaskTest {
         timer.schedule(new MyTimerTask(),new Date(),200);
 
 
-        System.in.read();//不退出运行
+       // System.in.read();//不退出运行
     }
 
     /*===================================================================*/

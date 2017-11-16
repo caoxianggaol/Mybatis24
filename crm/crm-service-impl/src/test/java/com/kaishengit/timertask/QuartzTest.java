@@ -33,7 +33,7 @@ public class QuartzTest {
         scheduler.scheduleJob(jobDetail,trigger);
         scheduler.start();
 
-        System.in.read();
+        //System.in.read();
     }
 
     /**
@@ -65,6 +65,6 @@ public class QuartzTest {
         scheduler.scheduleJob(jobDetail,trigger);
         scheduler.start();
 
-        System.in.read();
+       // System.in.read();
     }
 }

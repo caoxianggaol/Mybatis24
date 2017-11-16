@@ -26,12 +26,13 @@
     <!--定义调度器-->
     <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <!--定义Trigger 实际是数组 可以用 <array></array>或<list></list>-->
-      <property name="triggers">
-          <!--Trigger中定义了执行的任务 调度者调用相应的Trigger就行（用id调）-->
+     <!-- <property name="triggers">
+          &lt;!&ndash;Trigger中定义了执行的任务 调度者调用相应的Trigger就行（用id调）&ndash;&gt;
           <list>
               <ref bean="cronTrigger"></ref>
           </list>
-      </property>
+      </property>-->
+        <!--注释掉此内容是为了  动态添加任务 写入项目中，其他地方都一样-->
     </bean>
 
 </beans>

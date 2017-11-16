@@ -6,7 +6,7 @@ package com.kaishengit.crm.exception;
  */
 public class ServiceException extends RuntimeException{
 
-    public ServiceException() {}
+    public ServiceException(Exception ex, String s) {}
 
     public ServiceException(String message) {
         super(message);
