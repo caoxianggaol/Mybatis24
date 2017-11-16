@@ -15,14 +15,49 @@
         <property name="targetMethod" value="doSomething"/>
     </bean>
 
+    <!--quartz框架-->
+    <bean id="quartzJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <!--定义为循环任务，下面的覆盖数据库才有用 durability(持久的，耐久的)-->
+        <property name="durability" value="true"/>
+        <!--Quartz job 的实现类完全限定名-->
+        <property name="jobClass" value="com.kaishengit.crm.jobstest.MyQuartzJob"/>
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="accountId" value="1200"/>
+            </map>
+        </property>
+    </bean>
+
     <!--定义Trigger-->
     <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <!--执行 定义JobDetail-->
-        <property name="jobDetail" ref="jobDetail"/>
+        <property name="jobDetail" ref="quartzJob"/>
         <!--Cron表达式-->
-        <property name="cronExpression" value="0/2 * * * * ? *"/>
+        <property name="cronExpression" value="0/3 * * * * ? *"/>
     </bean>
 
+    <!--===============================只限于Spring中写在内存使用 比较灵活========================================-->
+    <!--&lt;!&ndash;定时任务配置 在Spring中的使用&ndash;&gt;
+    &lt;!&ndash;将Job放入Spring容器 id 自定义&ndash;&gt;
+    <bean id="springQuartz" class="com.kaishengit.crm.jobstest.SpringQuartzJob"/>
+
+    &lt;!&ndash;定义JobDetail id 自定义&ndash;&gt;
+    <bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        &lt;!&ndash;指定job类&ndash;&gt;
+        <property name="targetObject" ref="springQuartz"/>
+        &lt;!&ndash;指定Job类中的任务方法&ndash;&gt;
+        <property name="targetMethod" value="doSomething"/>
+    </bean>
+
+    &lt;!&ndash;定义Trigger&ndash;&gt;
+    <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        &lt;!&ndash;执行 定义JobDetail&ndash;&gt;
+        <property name="jobDetail" ref="jobDetail"/>
+        &lt;!&ndash;Cron表达式&ndash;&gt;
+        <property name="cronExpression" value="0/2 * * * * ? *"/>
+    </bean>-->
+<!--++++++++++++++++++++++++++以上配置如果没有固定任务则可以不配置
+                                如果有固定任务则需定义Trigger反之相反++++++++++++++++==============-->
     <!--定义调度器-->
     <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <!--定义Trigger 实际是数组 可以用 <array></array>或<list></list>-->
@@ -33,6 +68,22 @@
           </list>
       </property>-->
         <!--注释掉此内容是为了  动态添加任务 写入项目中，其他地方都一样-->
+        
+        <!--调度任务持久化 需要以下配置-->
+        <!--数据库连接池  已近配置过了 则只需将ref的值设置为之前配置时的id值-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--事物管理器  同上-->
+        <property name="transactionManager" ref="transactionManager"/>
+        <!--quartz.properties 文件的位置-->
+        <property name="configLocation" value="classpath:quartz.properties"/>
+        <!--是否覆盖数据库中已有的任务-->
+        <property name="overwriteExistingJobs" value="true"/>
+         <property name="triggers">
+          <!--Trigger中定义了执行的任务 调度者调用相应的Trigger就行（用id调）-->
+          <list>
+              <ref bean="cronTrigger"></ref>
+          </list>
+      </property>
     </bean>
 
 </beans>

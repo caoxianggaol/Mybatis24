@@ -157,7 +157,7 @@ public class TaskServiceImpl implements TaskService {
             Scheduler scheduler = schedulerFactoryBean.getScheduler();
             //group必须和上面一样  要知道删除那个 JobKey相当于自己创建了主键 1:46
             try {
-                scheduler.deleteJob(new JobKey("taskID:" + id, "sendMessageGroup"));
+                scheduler.deleteJob(new JobKey("taskID" + id, "sendMessageGroup"));
                 logger.info("成功删除定时任务 ID:{} groupName:{}",id,"sendMessageGroup");
             } catch(Exception ex) {
                 throw new ServiceException(ex,"删除定时任务异常");
