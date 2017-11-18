@@ -90,6 +90,7 @@
                 <artifactId>mybatis-spring</artifactId>
                 <version>${mybatis-spring-version}</version>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 
