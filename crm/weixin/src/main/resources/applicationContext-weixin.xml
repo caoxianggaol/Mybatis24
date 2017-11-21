@@ -4,8 +4,8 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!--扫描properties-->
-    <context:property-placeholder location="classpath:config-weixin.properties"/>
+  <!--  &lt;!&ndash;扫描properties&ndash;&gt;
+    <context:property-placeholder location="classpath:config-weixin.properties"/>-->
 
     <!--Component 扫含有此字节的类-->
     <context:component-scan base-package="com.kaishengit">

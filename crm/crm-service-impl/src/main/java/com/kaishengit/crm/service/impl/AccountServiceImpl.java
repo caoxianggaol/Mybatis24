@@ -12,12 +12,14 @@ import com.kaishengit.crm.mapper.AccountDeptMapper;
 import com.kaishengit.crm.mapper.AccountMapper;
 import com.kaishengit.crm.mapper.DeptMapper;
 import com.kaishengit.crm.service.AccountService;
+import com.kaishengit.weixin.WeiXinUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +45,8 @@ public class AccountServiceImpl implements AccountService {
     private DeptMapper deptMapper;
     @Autowired
     private AccountDeptMapper accountDeptMapper;
+    @Autowired
+    private WeiXinUtil weiXinUtil;
 
 
     /**
@@ -79,6 +83,7 @@ public class AccountServiceImpl implements AccountService {
      * @throws ServiceException 例如添加部门名称已存在
      */
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void saveNewDept(String deptName) throws ServiceException {
         //判断deptName是否存在
         DeptExample example = new DeptExample();
@@ -95,12 +100,15 @@ public class AccountServiceImpl implements AccountService {
         }
         //添加新部门，使用公司ID作为父ID
          dept = new Dept();
-        dept.setDeptName(deptName);
+        dept.setDeptName(deptName);//参数3
         dept.setpId(COMPANY_ID);
 
         System.out.println(dept.getpId());
 
         deptMapper.insertSelective(dept);
+
+        //发送到微信
+        weiXinUtil.createDept(dept.getId(),COMPANY_ID,deptName);
 
         logger.info("添加新部门 {}",deptName);
     }
@@ -184,6 +192,10 @@ public class AccountServiceImpl implements AccountService {
             accountDeptKey.setDeptId(deptId);
             accountDeptMapper.insert(accountDeptKey);
         }
+
+        //添加账号到微信
+        weiXinUtil.createAccount(account.getId(),userName,mobile, Arrays.asList(deptIds));
+
 
         logger.info("添加新账号 {}",userName);
     }
