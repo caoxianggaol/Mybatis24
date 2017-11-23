@@ -1,4 +1,4 @@
-package com.kaishengit.jms;
+package com.kaishengit.mq;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.RedeliveryPolicy;
@@ -64,7 +64,7 @@ public class ActiveMQ {
         MessageConsumer messageConsumer = session.createConsumer(destination);
         //7.消费消息,监听队列中的消息，如果有新的消息，则会调用执行onMessage方法
         messageConsumer.setMessageListener(new MessageListener() {
-            @Override   //实质是开启子线程轮询
+            @Override   //实质是开启子线程轮询 MessageListener的实现类再消费消息
             public void onMessage(Message message) {
                 TextMessage textMessage = (TextMessage) message;
                 try {
