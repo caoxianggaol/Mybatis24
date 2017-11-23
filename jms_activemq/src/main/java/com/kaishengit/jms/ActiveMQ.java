@@ -1,6 +1,7 @@
 package com.kaishengit.jms;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.RedeliveryPolicy;
 import org.junit.Test;
 
 import javax.jms.*;
@@ -22,18 +23,21 @@ public class ActiveMQ {
         connection.start();
         //4.创建Session (第一个参数是否开启事务，第二个是指定签收消息的模式（自动还是客户端签收）)
         //CLIENT_ACKNOWLEDGE 客户端签收(手动签收)
-        Session session = connection.createSession(false,Session.CLIENT_ACKNOWLEDGE);
+        Session session = connection.createSession(true,Session.CLIENT_ACKNOWLEDGE);
         //5.创建 Destination 目的地对象
         Destination destination = session.createQueue("text-message");
         //6.创建消息生产者  MessageProducer
         MessageProducer messageProducer = session.createProducer(destination);
         //设置持久化模式 DeliveryMode.PERSISTENT  不持久化（NON_PERSISTENT）时重启ActiveMQ消息会丢失,持久化不会丢失数据
         //看消息的重要性选择，不持久化性能高
-        messageProducer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+        //messageProducer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
         //7.创建消息
-        TextMessage textMessage = session.createTextMessage("Hello-message");
-        //8.发送消息
-        messageProducer.send(textMessage);
+        for(int i = 4;i<=9; i++) {
+            TextMessage textMessage = session.createTextMessage("Hello-message-"+i);
+            //8.发送消息
+            //messageProducer.send(textMessage);
+            messageProducer.send(textMessage,DeliveryMode.PERSISTENT,i,0);
+        }
         //提交事务  要提交事务先在创建Session时 将参数设置为true false为自动提交
         session.commit(); //session.rollback();也可以提交
         //9.释放资源
@@ -69,6 +73,153 @@ public class ActiveMQ {
                     textMessage.acknowledge();
                 } catch (JMSException e) {
                     e.printStackTrace();
+                }
+            }
+        });
+        System.in.read();
+        //8.释放资源
+        messageConsumer.close();
+        session.close();
+        connection.close();
+    }
+
+
+    /**
+     * 演示重试机制：rollback
+     * @throws JMSException
+     * @throws IOException
+     */
+    @Test   //消费消息
+    public void consumerMessageformQueue1() throws JMSException, IOException {
+        //1.创建连接connectionFactory
+        String brokerUrl = "tcp://localhost:61616";
+        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(brokerUrl);
+        //2.创建Connection
+        Connection connection = connectionFactory.createConnection();
+        //3.开启连接
+        connection.start();
+        //4.创建Session]
+        Session session = connection.createSession(true,Session.AUTO_ACKNOWLEDGE);
+        //5.创建 Destination 目的地对象
+        Destination destination = session.createQueue("text-message");
+        //6.创建消息消费者 MessageConsumer
+        MessageConsumer messageConsumer = session.createConsumer(destination);
+        //7.消费消息,监听队列中的消息，如果有新的消息，则会调用执行onMessage方法
+        messageConsumer.setMessageListener(new MessageListener() {
+            @Override   //实质是开启子线程轮询
+            public void onMessage(Message message) {
+                TextMessage textMessage = (TextMessage) message;
+                try {
+                    String text = textMessage.getText();
+                    if("Hello-message-6".equals(text)) {
+                        throw new JMSException("故意异常");
+                    }
+                    System.out.println("====" + text);
+                   session.commit();
+                } catch (JMSException e) {
+                    e.printStackTrace();
+                    try {
+                        session.rollback();
+                    } catch (JMSException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        });
+        System.in.read();
+        //8.释放资源
+        messageConsumer.close();
+        session.close();
+        connection.close();
+    }
+    /**
+     * 演示重试机制：recover()
+     * @throws JMSException
+     * @throws IOException
+     */
+    @Test   //消费消息
+    public void consumerMessageformQueue2() throws JMSException, IOException {
+        //1.创建连接connectionFactory
+        String brokerUrl = "tcp://localhost:61616";
+        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(brokerUrl);
+        //2.创建Connection
+        Connection connection = connectionFactory.createConnection();
+        //3.开启连接
+        connection.start();
+        //4.创建Session]
+        Session session = connection.createSession(false,Session.CLIENT_ACKNOWLEDGE);
+        //5.创建 Destination 目的地对象
+        Destination destination = session.createQueue("text-message");
+        //6.创建消息消费者 MessageConsumer
+        MessageConsumer messageConsumer = session.createConsumer(destination);
+        //7.消费消息,监听队列中的消息，如果有新的消息，则会调用执行onMessage方法
+        messageConsumer.setMessageListener(new MessageListener() {
+            @Override   //实质是开启子线程轮询
+            public void onMessage(Message message) {
+                TextMessage textMessage = (TextMessage) message;
+                try {
+                    String text = textMessage.getText();
+                    if("Hello-message-6".equals(text)) {
+                        throw new JMSException("自定义异常");
+                    }
+                    System.out.println("====" + text);
+                    //设置为手动签收时 在此手动签收，队列删除
+                    //如果没有异常则签收
+                    textMessage.acknowledge();
+                } catch (JMSException e) {
+                    e.printStackTrace();
+                    try {
+                        //引起异常，触发重新投递机制
+                        session.recover();
+                    } catch (JMSException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        });
+        System.in.read();
+        //8.释放资源
+        messageConsumer.close();
+        session.close();
+        connection.close();
+    }
+
+    /**
+     * 演示重试机制：no catch
+     * @throws JMSException
+     * @throws IOException
+     */
+    @Test   //消费消息
+    public void consumerMessageformQueue3() throws JMSException, IOException {
+        //1.创建连接connectionFactory
+        String brokerUrl = "tcp://localhost:61616";
+        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(brokerUrl);
+        //2.创建Connection
+        Connection connection = connectionFactory.createConnection();
+        //3.开启连接
+        connection.start();
+        //4.创建Session]
+        Session session = connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
+        //5.创建 Destination 目的地对象
+        Destination destination = session.createQueue("text-message");
+        //6.创建消息消费者 MessageConsumer
+        MessageConsumer messageConsumer = session.createConsumer(destination);
+        //7.消费消息,监听队列中的消息，如果有新的消息，则会调用执行onMessage方法
+        messageConsumer.setMessageListener(new MessageListener() {
+            @Override   //实质是开启子线程轮询
+            public void onMessage(Message message) {
+                TextMessage textMessage = (TextMessage) message;
+                try {
+                    String text = textMessage.getText();
+                    if("Hello-message-6".equals(text)) {
+                        throw new JMSException("自定义异常");
+                    }
+                    System.out.println("====" + text);
+                    //设置为手动签收时 在此手动签收，队列删除
+                    //如果没有异常则签收
+                    textMessage.acknowledge();
+                } catch (JMSException e) {
+                    throw new RuntimeException(e);
                 }
             }
         });
