@@ -193,7 +193,21 @@ public class ActiveMQ {
     public void consumerMessageformQueue3() throws JMSException, IOException {
         //1.创建连接connectionFactory
         String brokerUrl = "tcp://localhost:61616";
-        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(brokerUrl);
+        /*接口指向实现类时 实现类中特有的接口无法使用 而重试机制是实现类中特有的 所以要用实现类指向实现类*/
+        //ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(brokerUrl);
+        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(brokerUrl);
+
+        //自定义重试机制
+        RedeliveryPolicy redeliveryPolicy = new RedeliveryPolicy();
+        //重试次数
+        redeliveryPolicy.setMaximumRedeliveries(3);
+        //第一次重试的延迟时间
+        redeliveryPolicy.setInitialRedeliveryDelay(3000);
+        //每次重试的延迟时间
+        redeliveryPolicy.setRedeliveryDelay(3000);
+
+        connectionFactory.setRedeliveryPolicy(redeliveryPolicy);
+
         //2.创建Connection
         Connection connection = connectionFactory.createConnection();
         //3.开启连接
