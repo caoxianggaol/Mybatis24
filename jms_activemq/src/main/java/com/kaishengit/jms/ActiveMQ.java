@@ -243,4 +243,67 @@ public class ActiveMQ {
         session.close();
         connection.close();
     }
+
+    /*======================================================================================*/
+
+    @Test //生产消息
+    public void sendMessageToTopic() throws JMSException {
+        //1.创建连接connectionFactory   Topic(主题)
+        String brokerUrl = "tcp://localhost:61616";
+        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(brokerUrl);
+        //2.创建connection
+        Connection connection = connectionFactory.createConnection();
+        //3.开启连接
+        connection.start();
+        //4.创建Session (第一个参数是否开启事务，第二个是指定签收消息的模式（自动还是客户端签收）)
+        //CLIENT_ACKNOWLEDGE 客户端签收(手动签收)
+        Session session = connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
+        //5.创建 Topic 目的地对象 ****************
+        Topic topic = session.createTopic("text-topic");
+        //6.创建消息生产者  MessageProducer
+        MessageProducer messageProducer = session.createProducer(topic);
+        //7.创建消息
+        TextMessage textMessage = session.createTextMessage("Hello-topic");
+        //8.发送消息
+        messageProducer.send(textMessage);
+        //9.释放资源
+        messageProducer.close();
+        session.close();
+        connection.close();
+    }
+      /*消费者必须存活 不然无法获取消息  一条消息被多个消费者消费时使用*/
+
+    @Test   //消费消息
+    public void consumerMessageformTopic() throws JMSException, IOException {
+        //1.创建连接connectionFactory
+        String brokerUrl = "tcp://localhost:61616";
+        ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(brokerUrl);
+        //2.创建Connection
+         Connection connection = connectionFactory.createConnection();
+        //3.开启连接
+        connection.start();
+        //4.创建Session]
+        Session session = connection.createSession(false,Session.AUTO_ACKNOWLEDGE);
+        //5.创建 Destination 目的地对象
+        Topic topic = session.createTopic("text-topic");
+        //6.创建消息消费者 MessageConsumer
+        MessageConsumer messageConsumer = session.createConsumer(topic);
+        //7.消费消息,监听队列中的消息，如果有新的消息，则会调用执行onMessage方法
+        messageConsumer.setMessageListener(new MessageListener() {
+            @Override   //实质是开启子线程轮询
+            public void onMessage(Message message) {
+                TextMessage textMessage = (TextMessage) message;
+                try {
+                    System.out.println("====" + textMessage.getText());
+                } catch (JMSException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        System.in.read();
+        //8.释放资源
+        messageConsumer.close();
+        session.close();
+        connection.close();
+    }
 }
