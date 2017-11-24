@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--配置ActiveMQ链接工厂-->
+  <bean class="org.apache.activemq.ActiveMQConnectionFactory" id="connectionFactory">
+      <property name="brokerURL" value="tcp://localhost:61616"/>
+  </bean>
+
+    <!--配置SpringJMS的链接工厂-->
+   <bean class="org.springframework.jms.connection.SingleConnectionFactory" id="singleConnectionFactory">
+       <property name="targetConnectionFactory" ref="connectionFactory"/>
+   </bean>
+
+    <!--配置JMSTemplate-->
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="singleConnectionFactory"/>
+
+    </bean>
+
+</beans>
