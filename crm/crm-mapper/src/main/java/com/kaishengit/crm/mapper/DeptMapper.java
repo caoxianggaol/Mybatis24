@@ -28,4 +28,6 @@ public interface DeptMapper {
     int updateByPrimaryKeySelective(Dept record);
 
     int updateByPrimaryKey(Dept record);
+
+    List<Dept> findDeptByAccountId(Integer accountId);
 }

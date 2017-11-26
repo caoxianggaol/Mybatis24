@@ -223,4 +223,33 @@ public class AccountServiceImpl implements AccountService {
     public List<Account> findAllAccount() {
         return accountMapper.selectByExample(new AccountExample());
     }
+
+    /**
+     * 根据手机号查询Account
+     *
+     * @param mobile
+     * @return
+     */
+    @Override
+    public Account findByMobile(String mobile) {
+        AccountExample accountExample = new AccountExample();
+        accountExample.createCriteria().andMobileEqualTo(mobile);
+        List<Account> accountList = accountMapper.selectByExample(accountExample);
+
+        if(accountList != null && !accountList.isEmpty()) {
+            return accountList.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * 根据账号Id获取部门列表
+     *
+     * @param accountId
+     * @return
+     */
+    @Override
+    public List<Dept> findDeptByAccountId(Integer accountId) {
+        return deptMapper.findDeptByAccountId(accountId);
+    }
 }

@@ -33,6 +33,7 @@
                 <li><a href="#">Examples</a></li>
                 <li class="active">Blank page</li>
             </ol>
+
         </section>
 
         <!-- Main content -->
@@ -51,7 +52,10 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    Start creating your amazing application!
+                    <%--前端角色和权限的判断--%>
+                    <shiro:hasRole name="系统管理部">
+
+                    </shiro:hasRole>
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">

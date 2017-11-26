@@ -1,6 +1,7 @@
 package com.kaishengit.crm.controller;
 
 
+import com.kaishengit.crm.auth.ShiroUtil;
 import com.kaishengit.crm.entity.Account;
 
 import javax.servlet.http.HttpSession;
@@ -17,6 +18,6 @@ public abstract class BaseController {
      * @return
      */
     public Account getCurrentAccount(HttpSession httpSession) {
-        return (Account) httpSession.getAttribute("curr_account");
+        return ShiroUtil.getCurrentAccount();
     }
 }
