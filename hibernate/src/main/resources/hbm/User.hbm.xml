@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--hibernate-mapping-3.0.dtd-->
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.kaishengit.pojo">
+
+    <!--建立表(t_user)和类（pojo）的对应关系-->
+    <class name="User" table="user">
+        <!--建立列（数据库的对应字段）和属性（pojo中定义的变量名）的对应关系-->
+        <id name="id" column="id">
+            <!--主键生成策略 native:自动增长-->
+            <generator class="native"/>
+        </id>
+        <property name="name" column="name"/>
+        <property name="age" column="age"/>
+        <property name="address" column="address"/>
+    </class>
+
+</hibernate-mapping>
