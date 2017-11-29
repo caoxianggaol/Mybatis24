@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * Created 查询
  * Created by xiaogao on 2017/11/28.
  */
 public class CriteriaTest {
