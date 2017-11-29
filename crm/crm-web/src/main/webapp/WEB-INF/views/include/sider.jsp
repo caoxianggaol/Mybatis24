@@ -61,16 +61,15 @@
                 </ul>
             </li>
             <!-- 统计报表 -->
-            <li class="treeview">
+            <li class="treeview ${fn:startsWith(param.menu, 'charts_') ? 'active' : ''}">
                 <a href="#">
                     <i class="fa fa-pie-chart"></i> <span>统计报表</span>
-                    <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i>
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="../../index.html"><i class="fa fa-circle-o"></i> 待办列表</a></li>
-                    <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> 逾期事项</a></li>
+                    <li class="${param.menu == 'charts_demo' ? 'active' : ''}"><a href="/charts/demo"><i class="fa fa-circle-o"></i>静态演示</a></li>
+                    <li class="${param.menu == 'charts_customer' ? 'active' : ''}"><a href="/charts"><i class="fa fa-circle-o"></i>客户统计</a></li>
                 </ul>
             </li>
 

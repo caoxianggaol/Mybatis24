@@ -8,6 +8,7 @@ import com.kaishengit.crm.entity.Customer;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by xiaogao on 2017/11/10.
@@ -93,4 +94,23 @@ public interface CustomerService {
      * @return
      */
     List<Customer> findAllCustomerByAccountId(Account account);
+
+    /**
+     * 查询各个星级客户的数量
+     * @return
+     */
+    List<Map<String,Object>> findCustomerCountByLevel();
+
+    /**
+     * 查询每月新增的客户数量
+     * @return
+     */
+    List<Map<String,Object>> findCustomerCountByCreatedate();
+
+    /**
+     * 查询销售机会
+     * @return
+     */
+    List<Map<String,Object>> findCustomerCountByCreateSale();
+
 }

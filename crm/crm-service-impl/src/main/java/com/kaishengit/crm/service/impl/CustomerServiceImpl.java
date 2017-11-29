@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -247,6 +248,36 @@ public class CustomerServiceImpl implements CustomerService{
         customerExample.createCriteria().andAccountIdEqualTo(account.getId());
         List<Customer> customerList = customerMapper.selectByExample(customerExample);
         return customerList;
+    }
+
+    /**
+     * 查询各个星级客户的数量
+     *
+     * @return
+     */
+    @Override
+    public List<Map<String, Object>> findCustomerCountByLevel() {
+        return customerMapper.findCustomerCountByLevel();
+    }
+
+    /**
+     * 查询每月新增的客户数量
+     *
+     * @return
+     */
+    @Override
+    public List<Map<String, Object>> findCustomerCountByCreatedate() {
+        return customerMapper.findCustomerCountByCreatedate();
+    }
+
+    /**
+     * 查询销售机会
+     *
+     * @return
+     */
+    @Override
+    public List<Map<String, Object>> findCustomerCountByCreateSale() {
+        return customerMapper.findCustomerCountByCreateSale();
     }
 
 

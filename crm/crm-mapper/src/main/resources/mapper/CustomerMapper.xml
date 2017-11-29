@@ -227,6 +227,34 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+    <select id="findCustomerCountByLevel" resultType="java.util.Map">
+      SELECT
+        count(*) AS 'count',
+        `level`
+      FROM
+        customer
+      GROUP BY
+        `level`
+    </select>
+  <select id="findCustomerCountByCreatedate" resultType="java.util.Map">
+      SELECT
+        count(*) AS 'count',
+        MONTH (create_time) AS createtime
+      FROM
+        customer
+      GROUP BY
+        MONTH (create_time)
+  </select>
+  <select id="findCustomerCountByCreateSale" resultType="java.util.Map">
+      SELECT
+        count(*) AS 'count',
+        progress
+      FROM
+        sale_chance
+      GROUP BY
+        progress
+  </select>
+
   <update id="updateByExampleSelective" parameterType="map">
     update customer
     <set>
