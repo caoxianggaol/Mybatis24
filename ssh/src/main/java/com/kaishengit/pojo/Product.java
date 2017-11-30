@@ -22,6 +22,10 @@ public class Product {
     @Column(name = "comment_num")
     private Integer commentNum;
 
+    @ManyToOne(fetch = FetchType.LAZY)//不延迟加载，通过fetch = FetchType.LAZY开启
+    @JoinColumn(name = "type_id")//多的一端中的外键属性
+    private KaolaType kaolaType;
+
     public Integer getId() {
         return id;
     }
@@ -68,5 +72,13 @@ public class Product {
 
     public void setCommentNum(Integer commentNum) {
         this.commentNum = commentNum;
+    }
+
+    public KaolaType getKaolaType() {
+        return kaolaType;
+    }
+
+    public void setKaolaType(KaolaType kaolaType) {
+        this.kaolaType = kaolaType;
     }
 }

@@ -13,6 +13,16 @@
 </head>--%>
 <body>
     <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form action="" class="form-inline">
+                    <input type="text" placeholder="商品名称" name="productName" class="form-control">
+                    <input type="text" placeholder="价格" name="q_price_eq_bd">
+                    <input type="text" placeholder="市场价格" name="q_marketPrice_eq_bd">
+                    <button class="btn btn-default">搜索</button>
+                </form>
+            </div>
+        </div>
         <a href="/product/new" class="btn btn-success">添加</a>
         <table class="table">
             <thead>
@@ -28,7 +38,7 @@
             <tbody>
                 <c:forEach items="${productList}" var="product">
                     <tr>
-                        <td>${product.productName}</td>
+                        <td><a href="/product/${product.id}">${product.productName}</a></td>
                         <td>${product.price}</td>
                         <td>${product.marketPrice}</td>
                         <td>${product.place}</td>
@@ -40,7 +50,6 @@
         </table>
     </div>
 
-
     <script src="/static/js/jquery.min.js"></script>
     <script>
         $(function(){
@@ -51,8 +60,6 @@
                     window.location.href = "/product/"+id+"/delete";
                 }
             });
-
-
         });
     </script>
 </body>

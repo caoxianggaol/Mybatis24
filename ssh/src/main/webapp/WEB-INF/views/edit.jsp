@@ -7,30 +7,31 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title></title>
-    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <form method="post">
+            <input type="hidden" name="id" value="${product.id}">
             <div class="form-group">
                 <label>商品名称</label>
-                <input type="text" name="productName" class="form-control">
+                <input type="text" name="productName" value="${product.productName}" class="form-control">
             </div>
             <div class="form-group">
                 <label>价格</label>
-                <input type="text" name="price" class="form-control">
+                <input type="text" name="price" value="${product.price}" class="form-control">
             </div>
             <div class="form-group">
                 <label>市场价格</label>
-                <input type="text" name="marketPrice" class="form-control">
+                <input type="text" name="marketPrice" value="${product.marketPrice}" class="form-control">
             </div>
             <div class="form-group">
                 <label>产地</label>
-                <input type="text" name="place" class="form-control">
+                <input type="text" name="place" value="${product.place}" class="form-control">
             </div>
             <div class="form-group">
                 <label>评论数量</label>
-                <input type="text" name="commentNum" class="form-control">
+                <input type="text" name="commentNum" value="${product.commentNum}" class="form-control">
             </div>
             <div class="form-group">
                 <button class="btn btn-primary">保存</button>
