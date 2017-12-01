@@ -7,6 +7,7 @@ import java.util.Enumeration;
 import java.util.List;
 
 /**
+ * 搜索
  * Created by xiaogao on 2017/11/30.
  */
 public class RequestQuery {
@@ -47,18 +48,26 @@ public static List<RequestQuery> builderRequestQuery(HttpServletRequest request)
     // q_proudectName_like解析 -> RequestQuery ->Restrictions
     Enumeration<String> enumeration = request.getParameterNames();
     while(enumeration.hasMoreElements()) {
-        String queryKey = enumeration.nextElement();//请求的jian
+        String queryKey = enumeration.nextElement();//请求的键
         String value = request.getParameter(queryKey);//根据建获取值
         if(queryKey.startsWith("q_") && !"".equals(value) && value != null) {
-            //q_xxx_eq_s
-            String[] array = queryKey.split("_");
+            // and关系q_xxx_eq_s
+            //String[] array = queryKey.split("_");
+
+            //or关系q_eq_bd_price_or_marketPrice 4 截取四段
+            String[] array = queryKey.split("_",4);
             if(array == null || array.length != 4) {
                 throw new IllegalArgumentException("查询条件异常:" + queryKey);
             }
             RequestQuery requestQuery = new RequestQuery();
-            requestQuery.setParameterName(array[1]);
+            /*requestQuery.setParameterName(array[1]);
             requestQuery.setEqualType(array[2]);
             requestQuery.setValue(tranValueType(array[3],value));
+*/
+           // or关系q_eq_bd_price_or_marketPrice
+            requestQuery.setParameterName(array[3]);
+            requestQuery.setEqualType(array[1]);
+            requestQuery.setValue(tranValueType(array[2],value));
 
             requestQueryList.add(requestQuery);
         }

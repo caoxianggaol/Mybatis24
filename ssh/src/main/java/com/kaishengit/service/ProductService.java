@@ -2,6 +2,7 @@ package com.kaishengit.service;
 
 import com.kaishengit.dao.ProductDao;
 import com.kaishengit.pojo.Product;
+import com.kaishengit.util.Page;
 import com.kaishengit.util.RequestQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,10 @@ public class ProductService {
 
     public List<Product> findByRequestQuery(List<RequestQuery> requestQueryList) {
         return productDao.findByRequestQueryList(requestQueryList);
+    }
+
+    public Page<Product> findByRequestQuery(List<RequestQuery> requestQueryList, Integer pageNo) {
+        return productDao.findByRequestQueryAndPage(requestQueryList,pageNo);
     }
 
    /* public List<Product> findByProductName(String productName) {
