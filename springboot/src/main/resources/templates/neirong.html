@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{mobanye}">
+
+<head>
+    <title>首页</title>
+    <link rel="stylesheet" href="css/a.css">
+</head>
+<body>
+    <div layout:fragment="content">
+        <!--动态内容-->
+        <h3>欢迎！！！！！！</h3>
+        <h3>欢迎！！！！！！</h3>
+        <h3>欢迎！！！！！！</h3>
+    </div>
+    <!--只有模板中规定了才可以 在其中写内容-->
+    <script layout:fragment="js">
+        var a = 10;
+    </script>
+</body>
+</html>

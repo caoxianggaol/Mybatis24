@@ -27,6 +27,7 @@ public class HelloController {
 
         model.addAttribute("userNameList",userNameList);
 
-        return "hello";
+        //return "hello";
+        return "neirong";
     }
 }

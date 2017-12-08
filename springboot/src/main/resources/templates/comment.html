@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--只有在此情况下才能传值  (title)  th:fragment="topHeader(title)"-->
+    <div class="header" th:fragment="topHeader(title)">
+        <h1>系统登录 - <span th:text="${title}"></spanth></h1>
+    </div>
+
+    <div id="footer">
+        <h1>@kaishengit</h1>
+    </div>
+</body>
+</html>

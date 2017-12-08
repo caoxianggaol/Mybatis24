@@ -5,6 +5,24 @@
     <title>Title</title>
 </head>
 <body>
+<!--引入模板 header html文件名 topHeader要引入的模块的th:fragment="topHeader"-->
+<!--• th:insert 用于将copy内容(含div)插入到
+当前div中
+• th:replace 用于将copy内容替换当前div
+• th:include 用于将copy内容(不含div)插入
+到当前div中
+• ~{}可以省略，
+直接写th:insert=“footer::copy”-->
+ <!--<div class="a"  th:insert="~{include/header::topHeader}"></div>-->
+<!--replace 推荐 -->
+ <!--<div class="a"  th:replace="~{include/header::topHeader}"></div>-->
+ <!--<div class="a"  th:include="~{include/header::topHeader}"></div>-->
+
+<!--传值 String用‘’引起来  可传多个值-->
+<div class="a" th:replace="~{comment::topHeader('2018')}"></div>
+
+
+
              <!--取值-->
 <!--th:text="${message}"将控制器传来的值显示在后端开发的页面
 并且源代码HELLO-SPRIN22GBOOT会被传的值替代
@@ -61,6 +79,8 @@
               以下两者连用前后端都可用，与xmlns:th="http://www.thymeleaf.org"无关-->
     <img th:src="@{'/image/link.jpg'}" src="../static/image/link.jpg">
 
+<!--  ~{}可省略 如果模板页面为id 则需加 # -->
+<div th:replace="~{comment::#footer}"></div>
 <!--===============================在javascript中的应用=======================================-->
             <!--版本2不支持服务 3.x支持-->
 
