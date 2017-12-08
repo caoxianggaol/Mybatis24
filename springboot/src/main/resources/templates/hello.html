@@ -61,6 +61,21 @@
               以下两者连用前后端都可用，与xmlns:th="http://www.thymeleaf.org"无关-->
     <img th:src="@{'/image/link.jpg'}" src="../static/image/link.jpg">
 
-<!---->
+<!--===============================在javascript中的应用=======================================-->
+            <!--版本2不支持服务 3.x支持-->
+
+             <!--条件成立显示内容 不成立不显示[# th:if="${user.id == 110}"]
+
+             [/]-->
+             <script th:inline="javascript">
+                 [# th:if="${user.id == 110}"]
+                 var id = [[${user.id}]];
+                 var userName = [[${user.userName}]];
+                 [/]
+             </script>
+
+            <!--标签库在此框架中不能使用 例如shiro-->
+
+
 </body>
 </html>
