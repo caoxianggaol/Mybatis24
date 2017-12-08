@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+             <!--取值-->
+<!--th:text="${message}"将控制器传来的值显示在后端开发的页面
+并且源代码HELLO-SPRIN22GBOOT会被传的值替代
+前端看到的还是  HELLO-SPRIN22GBOOT -->
+<!--========================取值方式 ================================================== -->
+             <h3 th:text="${message}">HELLO-SPRIN22GBOOT</h3>
+             <h3 th:text="${user.userName}"></h3>
+             <h3 th:text="${session.msg}"></h3>
+             <!--从url取值  xxx?q=100   下面取值为100-->
+             <h3 th:text="${param.q}"></h3>
+             <hr>
+             
+             <!--==================================超链接========-=================-->
+                <!--/user?id=1001 之前写法href="/user?id=${user.id}"是不可以的
+                正确写法如下-->
+             <a th:href="@{/user(id=${user.id})}">那就是那就是的 </a>
+             <!--/user/1001/show  {id}占位符  (id=${user.id}) 赋值-->
+             <a th:href="@{/user/{id}/{name}(id=${user.id},name=${user.userName})}"></a>
+     
+     
+      <!--=======================条件判断==========================-->
+             <!--如果条件不成立 则什么也不出现-->
+             <h1 th:if="${user.userName == 'tom'}">Hello-tom</h1>
+             <!--th:unless 条件的取反-->
+             <h1 th:unless="${user.userName == 'jack'}">hi-jack</h1>
+
+            <!--相当于 if else 做法-->
+             <ul th:switch="${user.userName}">
+                 <li th:case="'tom'">tom</li>
+                 <li th:case="'jack'">jack</li>
+                 <li th:case="*">other</li>
+             </ul>
+             <hr>
+             <!--给输入框中回显值-->
+
+             <input type="text" th:value="${user.userName}">
+             <!--获取user的id=110 th:attr="data-id=${user.id}"自定义属性和值
+             定义多个时，隔开-->
+             <h1 th:rel="${user.id}" th:attr="data-id=${user.id},data-name=${user.userName}">----------------</h1>
+<!--======================循环==============================================-->
+           <!--iterStat 迭代状态  odd 偶数 even 奇数-->
+             <ul>
+                 <li th:each="name,iterStat : ${userNameList}" th:text="${iterStat.index+'->'+iterStat.count +'->'+name}"
+                 th:class="${iterStat.odd ? 'odd' : 'even'}"></li>
+             </ul>
+             
+
+
+
+
+    <!--后端渲染 访问时可见 th:src="@{'/image/link.jpg'}"
+    访问时不可见，静态打开可见 前端使用  src="/image/link.jpg"
+    src="../static/image/link.jpg"直接在文件夹中打开静态文件可见
+              以下两者连用前后端都可用，与xmlns:th="http://www.thymeleaf.org"无关-->
+    <img th:src="@{'/image/link.jpg'}" src="../static/image/link.jpg">
+
+<!---->
+</body>
+</html>
