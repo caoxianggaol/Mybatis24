@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+   <!--自定义 base.xml中配置有将日志同时输出到控制台和文件中(10M分割)，同时会自动读取application.properties配置
+文件中的logging.file和logging.path配置，用来将文件输出到指定位置。如果未指定，则输出到系统的临时文
+件夹中，文件名称为spring.log-->
+    <!-- <logger name="org.springframework.web" level="INFO"/>
+    <logger name="com.kaishengit" level="DEBUG"/>-->
+</configuration>
