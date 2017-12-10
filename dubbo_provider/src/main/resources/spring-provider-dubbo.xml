@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!--服务提供者 提供服务配置-->
+
+    <!--服务名称 自定义-->
+    <dubbo:application name="ProviderService"/>
+    <!--注册中心-->
+    <dubbo:registry address="zookeeper://192.168.1.101:2181"/>
+    <!--dubbo的协议和端口  默认-->
+    <dubbo:protocol name="dubbo" host="192.168.1.101" port="20880"/>
+    <!--暴露服务  提供接口 com.kaishengit.service.ProductService
+    提供接口的实现类 com.kaishengit.service.impl.ProductServiceImpl-->
+    <bean id="productService" class="com.kaishengit.service.impl.ProductServiceImpl"/>
+    <dubbo:service interface="com.kaishengit.service.ProductService" ref="productService"/>
+
+
+</beans>
