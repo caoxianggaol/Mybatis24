@@ -8,5 +8,6 @@ import java.util.List;
 public interface ProductService {
 
 
-     List<String> findByProductNames();
+     List<String> findAllProductNames();
+     void save(String name);
 }

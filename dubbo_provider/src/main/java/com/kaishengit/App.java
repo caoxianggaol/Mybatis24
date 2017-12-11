@@ -1,6 +1,10 @@
 package com.kaishengit;
 
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+
+
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.IOException;
 
@@ -11,7 +15,10 @@ public class App {
 
     public static void main(String[] args) throws IOException {
 
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-provider-dubbo.xml");
+        //ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-provider-dubbo.xml");
+        //context.start();
+
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
         context.start();
 
         System.out.println("Provider start........................");

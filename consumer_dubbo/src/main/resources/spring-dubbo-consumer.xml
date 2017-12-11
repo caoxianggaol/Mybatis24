@@ -5,14 +5,14 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-    <!--消费端 配置-->
+   <!-- &lt;!&ndash;消费端 配置&ndash;&gt;
     <dubbo:application name="ConsumerService"/>
-    <!--注册中心 -->
+    &lt;!&ndash;注册中心 &ndash;&gt;
     <dubbo:registry address="zookeeper://192.168.1.101:2181"/>
 
-    <!--接收消费服务-->
+    &lt;!&ndash;接收消费服务&ndash;&gt;
     <dubbo:reference interface="com.kaishengit.service.ProductService" id="rpcProductService" />
-
+-->
 
 
 

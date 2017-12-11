@@ -5,18 +5,18 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-    <!--服务提供者 提供服务配置-->
+   <!-- &lt;!&ndash;服务提供者 提供服务配置&ndash;&gt;
 
-    <!--服务名称 自定义-->
+    &lt;!&ndash;服务名称 自定义&ndash;&gt;
     <dubbo:application name="ProviderService"/>
-    <!--注册中心-->
+    &lt;!&ndash;注册中心&ndash;&gt;
     <dubbo:registry address="zookeeper://192.168.1.101:2181"/>
-    <!--dubbo的协议和端口  默认-->
+    &lt;!&ndash;dubbo的协议和端口  默认&ndash;&gt;
     <dubbo:protocol name="dubbo" host="192.168.1.101" port="20880"/>
-    <!--暴露服务  提供接口 com.kaishengit.service.ProductService
-    提供接口的实现类 com.kaishengit.service.impl.ProductServiceImpl-->
+    &lt;!&ndash;暴露服务  提供接口 com.kaishengit.service.ProductService
+    提供接口的实现类 com.kaishengit.service.impl.ProductServiceImpl&ndash;&gt;
     <bean id="productService" class="com.kaishengit.service.impl.ProductServiceImpl"/>
     <dubbo:service interface="com.kaishengit.service.ProductService" ref="productService"/>
 
-
+-->
 </beans>
